@@ -8,6 +8,9 @@
             {% if error == 404 %}
                 <h2>Pagina niet gevonden</h2>
                 <p>De pagina die je zoekt bestaat niet.</p>
+            {% elif error == 403 %}
+                <h2>Toegang geweigerd</h2>
+                <p>Je hebt geen toegangsrechten voor deze pagina. Alleen admins kunnen deze pagina bezoeken.</p>
             {% elif error == 500 %}
                 <h2>Server Error</h2>
                 <p>Er is iets misgegaan op de server. Probeer het later opnieuw.</p>
