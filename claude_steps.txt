@@ -7,7 +7,7 @@
    - Flask applicatie basis opzetten (app.py)
    - Mappenstructuur voor templates en static bestanden
 
-2. **Google OAuth authenticatie implementeren**
+2. **Google OAuth authenticatie implementeren** ✅
    - OAuth flow implementeren voor Google accounts
    - Domeinvalidatie voor @lynxx.com
    - Login- en sessiemanagement
@@ -58,4 +58,4 @@
    - Caching van app-gegevens
    - Lazy loading van 3D-elementen
 
-De eerste must-have stap is afgerond. De volgende stap is het implementeren van de Google OAuth authenticatie om de toegang tot de portal te beperken tot gebruikers met een @lynxx.com e-mailadres. Alle huidige stappen zijn noodzakelijk voor de basiswerking van de applicatie.
+De eerste twee must-have stappen zijn afgerond. De volgende stap is het implementeren van de dynamische app-tegels functionaliteit waarbij apps worden geladen uit het apps.json configuratiebestand. Alle huidige stappen zijn noodzakelijk voor de basiswerking van de applicatie.
