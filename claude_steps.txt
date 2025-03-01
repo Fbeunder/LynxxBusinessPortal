@@ -79,7 +79,20 @@
    - Caching van app-gegevens
    - Lazy loading van 3D-elementen
 
-Alle must-have stappen zijn afgerond en de eerste nice-to-have feature (admin interface voor app-beheer) is ook geïmplementeerd. De applicatie is nu volledig functioneel en geschikt voor productief gebruik. De overige nice-to-have features kunnen later worden toegevoegd om de gebruikerservaring verder te verbeteren, maar zijn niet essentieel voor de basiswerking van de portal.
+## Status en volgende stappen
+
+Alle must-have stappen zijn afgerond en de eerste nice-to-have feature (admin interface voor app-beheer) is ook geïmplementeerd. De applicatie is nu volledig functioneel en geschikt voor productief gebruik.
+
+We hebben een kritieke bug in de login-functionaliteit opgelost (#24) door de redirect URI correct te configureren. De code is nu robuuster en beter gedocumenteerd. 
+
+**Openstaande PRs die moeten worden gemerged:**
+- PR #25: Fix login redirect_uri_mismatch probleem (gereed om te mergen)
+- PR #2: Basis projectstructuur implementeren
+- PR #6: Implementeer dynamische app-tegels functionaliteit
+- PR #10: Configuratiesysteem uitbreiden  
+- PR #15: Implementeer admin interface voor app-beheer
+
+Na het mergen van deze PRs is de applicatie volledig functioneel en klaar voor gebruik. De overige nice-to-have features kunnen later worden toegevoegd om de gebruikerservaring verder te verbeteren, maar zijn niet essentieel voor de basiswerking van de portal.
 
 De volgende nice-to-have features kunnen nog worden geïmplementeerd in volgorde van prioriteit:
 1. Personalisatie-opties voor gebruikers
