@@ -1,23 +1,41 @@
 {% extends "base.html" %}
 
-{% block title %}Error {{ error }} - Lynxx Business Portal{% endblock %}
+{% block title %}Error {{ error }} - {{ app_name | default('Lynxx Business Portal') }}{% endblock %}
 
 {% block content %}
     <div class="error-container">
         <div class="error-box">
-            {% if error == 404 %}
+            {% if error == 403 %}
+                <h2>Toegang geweigerd</h2>
+                <p>Je hebt geen toegang tot deze pagina.</p>
+                {% if message %}
+                    <p class="error-message">{{ message }}</p>
+                {% endif %}
+            {% elif error == 404 %}
                 <h2>Pagina niet gevonden</h2>
                 <p>De pagina die je zoekt bestaat niet.</p>
+                {% if message %}
+                    <p class="error-message">{{ message }}</p>
+                {% endif %}
             {% elif error == 500 %}
                 <h2>Server Error</h2>
                 <p>Er is iets misgegaan op de server. Probeer het later opnieuw.</p>
+                {% if message %}
+                    <p class="error-message">{{ message }}</p>
+                {% endif %}
             {% else %}
                 <h2>Error {{ error }}</h2>
                 <p>Er is een onverwachte fout opgetreden.</p>
+                {% if message %}
+                    <p class="error-message">{{ message }}</p>
+                {% endif %}
             {% endif %}
             
             <div class="error-actions">
                 <a href="{{ url_for('index') }}" class="btn">Terug naar Home</a>
+                {% if error != 403 %}
+                    <a href="mailto:support@lynxx.com?subject=Portal%20Error%20{{ error }}" class="btn btn-outline">Contact Support</a>
+                {% endif %}
             </div>
         </div>
     </div>
