@@ -8,7 +8,53 @@
             <div class="app-tile">
                 <a href="{{ app.url }}" target="_blank">
                     <div class="app-icon">
-                        <span class="icon">{{ app.icon }}</span>
+                        <span class="icon">
+                            {% if app.icon == 'mail' %}📧
+                            {% elif app.icon == 'clock' %}⏰
+                            {% elif app.icon == 'book' %}📚
+                            {% elif app.icon == 'calendar' %}📅
+                            {% elif app.icon == 'chart' %}📊
+                            {% elif app.icon == 'cloud' %}☁️
+                            {% elif app.icon == 'code' %}💻
+                            {% elif app.icon == 'cog' %}⚙️
+                            {% elif app.icon == 'database' %}🗄️
+                            {% elif app.icon == 'desktop' %}🖥️
+                            {% elif app.icon == 'download' %}⬇️
+                            {% elif app.icon == 'edit' %}✏️
+                            {% elif app.icon == 'eye' %}👁️
+                            {% elif app.icon == 'file' %}📄
+                            {% elif app.icon == 'folder' %}📁
+                            {% elif app.icon == 'globe' %}🌐
+                            {% elif app.icon == 'heart' %}❤️
+                            {% elif app.icon == 'home' %}🏠
+                            {% elif app.icon == 'image' %}🖼️
+                            {% elif app.icon == 'info' %}ℹ️
+                            {% elif app.icon == 'key' %}🔑
+                            {% elif app.icon == 'lock' %}🔒
+                            {% elif app.icon == 'map' %}🗺️
+                            {% elif app.icon == 'message' %}💬
+                            {% elif app.icon == 'mobile' %}📱
+                            {% elif app.icon == 'money' %}💰
+                            {% elif app.icon == 'pen' %}🖋️
+                            {% elif app.icon == 'phone' %}📞
+                            {% elif app.icon == 'print' %}🖨️
+                            {% elif app.icon == 'search' %}🔍
+                            {% elif app.icon == 'server' %}🖧
+                            {% elif app.icon == 'settings' %}⚙️
+                            {% elif app.icon == 'share' %}📤
+                            {% elif app.icon == 'shield' %}🛡️
+                            {% elif app.icon == 'shopping-cart' %}🛒
+                            {% elif app.icon == 'star' %}⭐
+                            {% elif app.icon == 'tag' %}🏷️
+                            {% elif app.icon == 'trash' %}🗑️
+                            {% elif app.icon == 'upload' %}⬆️
+                            {% elif app.icon == 'user' %}👤
+                            {% elif app.icon == 'users' %}👥
+                            {% elif app.icon == 'video' %}🎬
+                            {% elif app.icon == 'wrench' %}🔧
+                            {% else %}🔗
+                            {% endif %}
+                        </span>
                     </div>
                     <div class="app-info">
                         <h3>{{ app.name }}</h3>
