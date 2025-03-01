@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Lynxx Business Portal{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <header class="header">
+        <div class="logo-container">
+            <!-- 3D logo container -->
+            <div id="logo3d"></div>
+        </div>
+        <div class="header-content">
+            <h1>Lynxx Business Portal</h1>
+            {% if user %}
+            <div class="user-info">
+                <p>Welkom, {{ user.first_name }}!</p>
+            </div>
+            {% endif %}
+        </div>
+    </header>
+
+    <main class="content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer">
+        <p>&copy; {% now 'Y' %} Lynxx - Business Portal</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/logo3d.js') }}"></script>
+    {% block extra_scripts %}{% endblock %}
+</body>
+</html>
