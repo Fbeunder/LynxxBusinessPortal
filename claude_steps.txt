@@ -18,10 +18,11 @@
    - Apps.json gebruiken om tegels te genereren 
    - Correcte doorklik-functionaliteit naar de apps
 
-4. **3D Lynxx logo implementeren met volledige functionaliteit**
-   - Three.js animatie afmaken
-   - Optimaliseren van 3D-rendering
+4. **3D Lynxx logo implementeren met volledige functionaliteit** ✅
+   - Three.js animatie afgemaakt
+   - Geoptimaliseerde 3D-rendering
    - Tekst vervangen door echt 3D-model
+   - Interactieve functies toegevoegd (draaien via muis/touch)
 
 5. **Configuratiesysteem uitbreiden**
    - Omgevingsvariabelen gebruiken voor configuratie
@@ -58,4 +59,4 @@
    - Caching van app-gegevens
    - Lazy loading van 3D-elementen
 
-De eerste drie must-have stappen zijn afgerond. De volgende stap is het implementeren van het 3D Lynxx logo met volledige functionaliteit. Alle huidige must-have stappen zijn noodzakelijk voor de basiswerking van de applicatie.
+De eerste vier must-have stappen zijn afgerond. De volgende stap is het uitbreiden van het configuratiesysteem met omgevingsvariabelen, admin-instellingen en betere foutafhandeling. Alle huidige must-have stappen zijn noodzakelijk voor de basiswerking van de applicatie.
