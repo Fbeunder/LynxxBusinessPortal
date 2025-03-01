@@ -58,6 +58,10 @@
     - Mapping van icon-namen naar emoji's geïmplementeerd
     - Consistent design tussen admin interface en hoofdpagina
 
+11. **Navigatie vanaf Admin dashboard verbeteren** ✅
+    - "Terug naar hoofdpagina" knop toegevoegd aan het Admin dashboard
+    - Verbeterde gebruikerservaring door eenvoudige navigatie tussen admin en hoofdpagina
+
 ## Nice-to-have stappen
 
 1. **Admin interface voor app-beheer** ✅
@@ -93,7 +97,7 @@
    - Caching van app-gegevens
    - Lazy loading van 3D-elementen
 
-Alle must-have stappen zijn nu voltooid, inclusief de bugfixes voor de OAuth-gerelateerde problemen en de weergave van de apps op de hoofdpagina. De applicatie is nu volledig functioneel en geschikt voor productief gebruik.
+Alle must-have stappen zijn nu voltooid, inclusief de bugfixes voor de OAuth-gerelateerde problemen, de weergave van de apps op de hoofdpagina, en de toegevoegde navigatiemogelijkheid vanaf het Admin dashboard. De applicatie is nu volledig functioneel en geschikt voor productief gebruik, met een verbeterde gebruikerservaring voor beheerders.
 
 De eerste twee nice-to-have features zijn nu ook geïmplementeerd:
 1. ✅ Admin interface voor app-beheer
