@@ -92,9 +92,9 @@ De applicatie volgt een modulaire structuur met de volgende hoofdcomponenten:
 - **Afhankelijkheid**: Geen afhankelijkheden
 
 ### README.md
-- **Status**: Volledig geïmplementeerd
+- **Status**: Volledig geïmplementeerd en uitgebreid met venv-instructies
 - **Bestandsnaam**: README.md
-- **Functionaliteit**: Uitgebreide documentatie over de applicatie, installatie, configuratie en gebruik
+- **Functionaliteit**: Uitgebreide documentatie over de applicatie, installatie, configuratie en gebruik, inclusief instructies voor het opzetten en beheren van virtuele omgevingen
 - **Afhankelijkheid**: Geen afhankelijkheden
 
 ### requirements.txt
