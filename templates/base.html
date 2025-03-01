@@ -24,6 +24,9 @@
                             <img src="{{ user.picture }}" alt="{{ user.given_name }}" class="profile-image">
                         {% endif %}
                         <span class="user-name">{{ user.given_name }}</span>
+                        {% if is_admin() %}
+                            <a href="{{ url_for('admin_dashboard') }}" class="admin-btn">Admin</a>
+                        {% endif %}
                         <a href="{{ url_for('logout') }}" class="logout-btn">Uitloggen</a>
                     </div>
                 {% endif %}
