@@ -1,7 +1,7 @@
 # Lynxx Business Portal
 
 ## 1. Projectoverzicht
-De Lynxx Business Portal is een webomgeving waar Lynxx medewerkers de belangrijkste bedrijfsapps van Lynxx kunnen vinden. De portal biedt een centrale toegangsplaats tot bedrijfsapplicaties, authenticeert gebruikers via Google accounts binnen het lynxx.com domein, en presenteert de beschikbare apps als tegels in een overzichtelijke interface. De header van de portal bevat een 3D-roterende Lynxx logo om visuele interesse te wekken. Daarnaast biedt de portal een admin interface waar beheerders apps kunnen toevoegen, bewerken, verwijderen en ordenen.
+De Lynxx Business Portal is een webomgeving waar Lynxx medewerkers de belangrijkste bedrijfsapps van Lynxx kunnen vinden. De portal biedt een centrale toegangsplaats tot bedrijfsapplicaties, authenticeert gebruikers via Google accounts binnen het lynxx.com domein, en presenteert de beschikbare apps als tegels in een overzichtelijke interface. De header van de portal bevat een 3D-roterende Lynxx logo om visuele interesse te wekken. Daarnaast biedt de portal een admin interface waar beheerders apps kunnen toevoegen, bewerken, verwijderen en ordenen. Gebruikers kunnen hun favoriete apps markeren en de volgorde van apps aanpassen via personalisatie-opties.
 
 ## 2. Architectuur
 De applicatie volgt een modulaire structuur met de volgende hoofdcomponenten:
@@ -11,13 +11,14 @@ De applicatie volgt een modulaire structuur met de volgende hoofdcomponenten:
 - **Configuratie**: Configuratiebestanden voor app definities en instellingen
 - **Authenticatie**: Module voor het verifiëren van gebruikers via Google OAuth
 - **Admin Interface**: Module voor het beheren van apps door administrators
+- **Personalisatie**: Module voor gebruikerspecifieke voorkeuren en instellingen
 
 ## 3. Modules
 
 ### app.py
 - **Status**: Volledig geïmplementeerd
 - **Bestandsnaam**: app.py
-- **Functionaliteit**: Hoofdapplicatiebestand met Flask-serverimplementatie, route-beheer, verbeterde logging, foutafhandeling, configuratie validatie en API endpoints voor app-beheer
+- **Functionaliteit**: Hoofdapplicatiebestand met Flask-serverimplementatie, route-beheer, verbeterde logging, foutafhandeling, configuratie validatie, API endpoints voor app-beheer en gebruikersvoorkeuren
 - **Afhankelijkheid**: Afhankelijk van alle andere modules
 
 ### config.py
@@ -33,10 +34,16 @@ De applicatie volgt een modulaire structuur met de volgende hoofdcomponenten:
 - **Afhankelijkheid**: Afhankelijk van config.py
 - **Opmerking**: Bevat verbeterde automatische detectie voor development/production omgevingen met uitschakeling van HTTPS-vereiste (OAUTHLIB_INSECURE_TRANSPORT=1) in ontwikkelomgeving via twee methoden (FLASK_ENV en Config.DEBUG), en consistent gebruik van url_for() met _external=True voor callback URL's. Recentelijk gefixed om robuuster te werken bij InsecureTransportError.
 
+### user_preferences.py
+- **Status**: Volledig geïmplementeerd
+- **Bestandsnaam**: user_preferences.py
+- **Functionaliteit**: Module voor het beheren van gebruikersvoorkeuren zoals favoriete apps en app-ordening, met opslag in JSON-bestanden per gebruiker
+- **Afhankelijkheid**: Afhankelijk van config.py
+
 ### static/css/style.css
 - **Status**: Volledig geïmplementeerd
 - **Bestandsnaam**: static/css/style.css
-- **Functionaliteit**: CSS-styling voor de webinterface, inclusief 3D logo containers, authenticatie-elementen en de admin interface
+- **Functionaliteit**: CSS-styling voor de webinterface, inclusief 3D logo containers, authenticatie-elementen, admin interface en personalisatie-componenten
 - **Afhankelijkheid**: Geen afhankelijkheden
 
 ### static/js/main.js
@@ -66,8 +73,8 @@ De applicatie volgt een modulaire structuur met de volgende hoofdcomponenten:
 ### templates/index.html
 - **Status**: Volledig geïmplementeerd
 - **Bestandsnaam**: templates/index.html
-- **Functionaliteit**: Hoofdpagina met dynamisch gegenereerde app-tegels
-- **Afhankelijkheid**: Afhankelijk van base.html
+- **Functionaliteit**: Hoofdpagina met dynamisch gegenereerde app-tegels, favorieten functionaliteit, en drag-and-drop voor persoonlijke ordening
+- **Afhankelijkheid**: Afhankelijk van base.html en Sortable.js bibliotheek
 
 ### templates/login.html
 - **Status**: Volledig geïmplementeerd
