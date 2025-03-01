@@ -14,9 +14,9 @@ De applicatie volgt een modulaire structuur met de volgende hoofdcomponenten:
 ## 3. Modules
 
 ### app.py
-- **Status**: Basisimplementatie
+- **Status**: Volledig geïmplementeerd
 - **Bestandsnaam**: app.py
-- **Functionaliteit**: Hoofdapplicatiebestand met Flask-serverimplementatie
+- **Functionaliteit**: Hoofdapplicatiebestand met Flask-serverimplementatie en route-beheer
 - **Afhankelijkheid**: Afhankelijk van alle andere modules
 
 ### config.py
@@ -26,21 +26,21 @@ De applicatie volgt een modulaire structuur met de volgende hoofdcomponenten:
 - **Afhankelijkheid**: Geen afhankelijkheden
 
 ### auth.py
-- **Status**: Niet gestart
+- **Status**: Volledig geïmplementeerd
 - **Bestandsnaam**: auth.py
-- **Functionaliteit**: Authenticatiesysteem met Google OAuth integratie
+- **Functionaliteit**: Authenticatiesysteem met Google OAuth integratie en domeinvalidatie
 - **Afhankelijkheid**: Afhankelijk van config.py
 
 ### static/css/style.css
-- **Status**: Basisimplementatie
+- **Status**: Volledig geïmplementeerd
 - **Bestandsnaam**: static/css/style.css
-- **Functionaliteit**: CSS-styling voor de webinterface
+- **Functionaliteit**: CSS-styling voor de webinterface, inclusief authenticatie-elementen
 - **Afhankelijkheid**: Geen afhankelijkheden
 
 ### static/js/main.js
-- **Status**: Basisimplementatie
+- **Status**: Volledig geïmplementeerd
 - **Bestandsnaam**: static/js/main.js
-- **Functionaliteit**: Algemene JavaScript-functionaliteit voor de webinterface
+- **Functionaliteit**: Algemene JavaScript-functionaliteit voor de webinterface, inclusief authenticatie-gerelateerde functies
 - **Afhankelijkheid**: Geen afhankelijkheden
 
 ### static/js/logo3d.js
@@ -50,9 +50,9 @@ De applicatie volgt een modulaire structuur met de volgende hoofdcomponenten:
 - **Afhankelijkheid**: Afhankelijk van Three.js bibliotheek
 
 ### templates/base.html
-- **Status**: Basisimplementatie
+- **Status**: Volledig geïmplementeerd
 - **Bestandsnaam**: templates/base.html
-- **Functionaliteit**: Basis HTML-sjabloon voor alle pagina's
+- **Functionaliteit**: Basis HTML-sjabloon voor alle pagina's, inclusief gebruikersinfo-weergave
 - **Afhankelijkheid**: Geen afhankelijkheden
 
 ### templates/index.html
@@ -62,9 +62,9 @@ De applicatie volgt een modulaire structuur met de volgende hoofdcomponenten:
 - **Afhankelijkheid**: Afhankelijk van base.html
 
 ### templates/login.html
-- **Status**: Basisimplementatie
+- **Status**: Volledig geïmplementeerd
 - **Bestandsnaam**: templates/login.html
-- **Functionaliteit**: Inlogpagina
+- **Functionaliteit**: Inlogpagina met Google OAuth integratie
 - **Afhankelijkheid**: Afhankelijk van base.html
 
 ### templates/error.html
@@ -77,4 +77,10 @@ De applicatie volgt een modulaire structuur met de volgende hoofdcomponenten:
 - **Status**: Basisimplementatie
 - **Bestandsnaam**: apps.json
 - **Functionaliteit**: JSON-configuratiebestand voor app-definities (naam, URL, beschrijving, icon)
+- **Afhankelijkheid**: Geen afhankelijkheden
+
+### requirements.txt
+- **Status**: Volledig geïmplementeerd
+- **Bestandsnaam**: requirements.txt
+- **Functionaliteit**: Lijst van Python-afhankelijkheden voor de applicatie
 - **Afhankelijkheid**: Geen afhankelijkheden
