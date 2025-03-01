@@ -132,10 +132,35 @@ Applicaties worden geconfigureerd in het `apps.json` bestand. Je kunt apps toevo
 }
 ```
 
+### Google OAuth configuratie
+
+Voor een correcte OAuth configuratie moet je de volgende stappen uitvoeren:
+
+1. Maak een project aan in de [Google Cloud Console](https://console.cloud.google.com/)
+2. Configureer het OAuth consent screen:
+   - Stel het app-type in op "Internal" (voor organisatie-intern gebruik)
+   - Voeg de nodige scopes toe: `openid`, `email`, `profile`
+   
+3. Maak OAuth 2.0 client credentials aan:
+   - Kies voor "Web application" als applicatietype
+   - Voeg de juiste redirect URIs toe:
+     - Voor ontwikkeling: `http://localhost:5000/login/google/callback`
+     - Voor productie: `https://jouw-domein.com/login/google/callback`
+   
+4. Kopieer de Client ID en Client Secret naar je `.env` bestand
+
+> **Belangrijk**: In productie moet OAuth2 altijd HTTPS gebruiken. De portal zal automatisch HTTPS afdwingen in productie.
+> In de ontwikkelomgeving is HTTP toegestaan door de `OAUTHLIB_INSECURE_TRANSPORT=1` instelling.
+
+#### Redirect URI instellen
+
+Zorg ervoor dat de redirect URI in de Google Cloud Console **exact** overeenkomt met de URL die door de applicatie wordt gegenereerd. Dit is nu gefixeerd door gebruik van `url_for('google_callback', _external=True)` in de code.
+
 ### Omgevingsvariabelen
 
 | Variabele | Beschrijving | Voorbeeld |
 |-----------|-------------|-----------|
+| FLASK_ENV | Applicatie-omgeving (development/production) | `development` |
 | FLASK_SECRET_KEY | Geheime sleutel voor Flask sessies | `random_string_here` |
 | GOOGLE_CLIENT_ID | Google OAuth client ID | `123456789.apps.googleusercontent.com` |
 | GOOGLE_CLIENT_SECRET | Google OAuth client secret | `ABCdef123456` |
@@ -164,6 +189,7 @@ LynxxBusinessPortal/
     ├── base.html           # Basis template
     ├── index.html          # Homepage met app-tegels
     ├── login.html          # Login pagina
+    ├── admin.html          # Admin interface voor app-beheer
     └── error.html          # Error pagina
 ```
 
@@ -174,6 +200,14 @@ LynxxBusinessPortal/
 - CSRF-bescherming
 - Admin-controle voor bepaalde functionaliteit
 - Veilige sessiemanagement
+
+### HTTPS vereisten
+
+OAuth 2.0 vereist standaard HTTPS voor productie-omgevingen:
+
+- In de ontwikkelomgeving wordt HTTP toegestaan via de `OAUTHLIB_INSECURE_TRANSPORT=1` instelling
+- In productie moet de portal worden gehost achter een HTTPS proxy of met een SSL-certificaat
+- Het gebruik van een reverse proxy zoals Nginx of Apache met Let's Encrypt certificaten wordt aanbevolen
 
 ## 👨‍💻 Ontwikkeling
 
@@ -195,7 +229,7 @@ Handmatige tests:
 
 ## 📋 Toekomstige uitbreidingen
 
-- Admin interface voor app-beheer
+- Admin interface voor app-beheer (✅ geïmplementeerd)
 - Personalisatie-opties voor gebruikers
 - Zoekfunctionaliteit voor apps
 - Gebruiksstatistieken dashboard
