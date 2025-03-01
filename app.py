@@ -10,7 +10,8 @@ Het bevat de Flask applicatie en routes voor de webinterface.
 
 import os
 import datetime
-from flask import Flask, render_template, redirect, url_for, session, jsonify
+import logging
+from flask import Flask, render_template, redirect, url_for, session, jsonify, request, flash
 from flask_session import Session
 from config import Config
 import auth
@@ -24,6 +25,12 @@ app.config["SESSION_TYPE"] = "filesystem"
 app.config["SESSION_PERMANENT"] = False
 Session(app)
 
+# Logging setup
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+
 # Jinja filters toevoegen
 @app.template_filter('now')
 def _jinja2_filter_now(format_=None):
@@ -34,6 +41,11 @@ def _jinja2_filter_now(format_=None):
 @app.context_processor
 def inject_now():
     return {'now': datetime.datetime.now}
+
+# Maak 'is_admin' functie beschikbaar in templates
+@app.context_processor
+def inject_admin_check():
+    return {'is_admin': auth.is_admin}
 
 @app.route('/')
 @auth.require_login
@@ -82,6 +94,162 @@ def logout():
     Logt de gebruiker uit.
     """
     return auth.logout()
+
+# Admin routes
+@app.route('/admin')
+@auth.require_admin
+def admin_dashboard():
+    """
+    Admin dashboard route.
+    Alleen toegankelijk voor gebruikers met admin-rechten.
+    """
+    user_info = auth.get_user_info()
+    apps = Config.load_apps().get("apps", [])
+    
+    return render_template('admin.html', user=user_info, apps=apps)
+
+# API routes voor app-beheer
+@app.route('/api/apps', methods=['GET'])
+@auth.require_admin
+def get_apps():
+    """
+    API endpoint om alle apps op te halen.
+    """
+    apps = Config.load_apps().get("apps", [])
+    return jsonify({"status": "success", "apps": apps})
+
+@app.route('/api/apps', methods=['POST'])
+@auth.require_admin
+def add_app():
+    """
+    API endpoint om een nieuwe app toe te voegen.
+    """
+    try:
+        # Valideer invoer
+        data = request.get_json()
+        if not data or not all(key in data for key in ["name", "url", "description"]):
+            return jsonify({"status": "error", "message": "Missende verplichte velden"}), 400
+        
+        # Haal huidige apps op
+        apps_data = Config.load_apps()
+        
+        # Voeg nieuwe app toe
+        app_data = {
+            "name": data["name"],
+            "url": data["url"],
+            "description": data["description"],
+            "icon": data.get("icon", "link")
+        }
+        apps_data["apps"].append(app_data)
+        
+        # Sla de bijgewerkte apps op
+        if Config.save_apps(apps_data):
+            return jsonify({"status": "success", "app": app_data}), 201
+        else:
+            return jsonify({"status": "error", "message": "Kon app niet opslaan"}), 500
+    except Exception as e:
+        logging.error(f"Error adding app: {e}")
+        return jsonify({"status": "error", "message": str(e)}), 500
+
+@app.route('/api/apps/<int:app_id>', methods=['PUT'])
+@auth.require_admin
+def update_app(app_id):
+    """
+    API endpoint om een bestaande app bij te werken.
+    """
+    try:
+        # Valideer invoer
+        data = request.get_json()
+        if not data:
+            return jsonify({"status": "error", "message": "Geen data ontvangen"}), 400
+        
+        # Haal huidige apps op
+        apps_data = Config.load_apps()
+        
+        # Controleer of app bestaat
+        if app_id < 0 or app_id >= len(apps_data["apps"]):
+            return jsonify({"status": "error", "message": "App niet gevonden"}), 404
+        
+        # Update app
+        app = apps_data["apps"][app_id]
+        app["name"] = data.get("name", app["name"])
+        app["url"] = data.get("url", app["url"])
+        app["description"] = data.get("description", app["description"])
+        app["icon"] = data.get("icon", app.get("icon", "link"))
+        
+        # Sla de bijgewerkte apps op
+        if Config.save_apps(apps_data):
+            return jsonify({"status": "success", "app": app})
+        else:
+            return jsonify({"status": "error", "message": "Kon app niet opslaan"}), 500
+    except Exception as e:
+        logging.error(f"Error updating app: {e}")
+        return jsonify({"status": "error", "message": str(e)}), 500
+
+@app.route('/api/apps/<int:app_id>', methods=['DELETE'])
+@auth.require_admin
+def delete_app(app_id):
+    """
+    API endpoint om een app te verwijderen.
+    """
+    try:
+        # Haal huidige apps op
+        apps_data = Config.load_apps()
+        
+        # Controleer of app bestaat
+        if app_id < 0 or app_id >= len(apps_data["apps"]):
+            return jsonify({"status": "error", "message": "App niet gevonden"}), 404
+        
+        # Verwijder app
+        deleted_app = apps_data["apps"].pop(app_id)
+        
+        # Sla de bijgewerkte apps op
+        if Config.save_apps(apps_data):
+            return jsonify({"status": "success", "deleted": deleted_app})
+        else:
+            return jsonify({"status": "error", "message": "Kon app niet verwijderen"}), 500
+    except Exception as e:
+        logging.error(f"Error deleting app: {e}")
+        return jsonify({"status": "error", "message": str(e)}), 500
+
+@app.route('/api/apps/reorder', methods=['POST'])
+@auth.require_admin
+def reorder_apps():
+    """
+    API endpoint om de volgorde van apps aan te passen.
+    """
+    try:
+        # Valideer invoer
+        data = request.get_json()
+        if not data or "order" not in data:
+            return jsonify({"status": "error", "message": "Geen volgorde ontvangen"}), 400
+        
+        # Haal huidige apps op
+        apps_data = Config.load_apps()
+        current_apps = apps_data["apps"]
+        
+        # Controleer of de volgorde geldig is
+        order = data["order"]
+        if not all(isinstance(i, int) and 0 <= i < len(current_apps) for i in order):
+            return jsonify({"status": "error", "message": "Ongeldige volgorde"}), 400
+        
+        # Orden de apps
+        new_apps = [current_apps[i] for i in order]
+        apps_data["apps"] = new_apps
+        
+        # Sla de bijgewerkte apps op
+        if Config.save_apps(apps_data):
+            return jsonify({"status": "success", "apps": new_apps})
+        else:
+            return jsonify({"status": "error", "message": "Kon volgorde niet opslaan"}), 500
+    except Exception as e:
+        logging.error(f"Error reordering apps: {e}")
+        return jsonify({"status": "error", "message": str(e)}), 500
+
+@app.errorhandler(403)
+def forbidden(e):
+    """Afhandeling van 403 fouten"""
+    return render_template('error.html', error=403), 403
 
 @app.errorhandler(404)
 def page_not_found(e):
