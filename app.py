@@ -15,6 +15,7 @@ from flask import Flask, render_template, redirect, url_for, session, jsonify, r
 from flask_session import Session
 from config import Config
 import auth
+from user_preferences import UserPreferences
 
 # Initialiseer Flask applicatie
 app = Flask(__name__)
@@ -61,7 +62,11 @@ def index():
     # Laad apps uit de configuratie
     apps = Config.load_apps().get("apps", [])
     
-    return render_template('index.html', user=user_info, apps=apps)
+    # Pas gebruikersvoorkeuren toe op de apps
+    if user_info:
+        apps = UserPreferences.apply_preferences(user_info.get("id"), apps)
+    
+    return render_template('index.html', user=user_info, apps=apps, personalize=True)
 
 @app.route('/login')
 def login():
@@ -244,6 +249,88 @@ def reorder_apps():
             return jsonify({"status": "error", "message": "Kon volgorde niet opslaan"}), 500
     except Exception as e:
         logging.error(f"Error reordering apps: {e}")
+        return jsonify({"status": "error", "message": str(e)}), 500
+
+# User preference routes
+@app.route('/api/user/favorites/<int:app_id>', methods=['POST'])
+@auth.require_login
+def toggle_favorite(app_id):
+    """
+    API endpoint om een app als favoriet te markeren of de markering op te heffen.
+    """
+    try:
+        user_info = auth.get_user_info()
+        if not user_info:
+            return jsonify({"status": "error", "message": "Niet ingelogd"}), 401
+        
+        # Haal huidige apps op om te valideren dat de app_id bestaat
+        apps = Config.load_apps().get("apps", [])
+        if app_id < 0 or app_id >= len(apps):
+            return jsonify({"status": "error", "message": "App niet gevonden"}), 404
+        
+        # Toggle favoriet status
+        if UserPreferences.toggle_favorite(user_info["id"], app_id):
+            # Haal bijgewerkte voorkeuren op
+            preferences = UserPreferences.get_preferences(user_info["id"])
+            return jsonify({
+                "status": "success", 
+                "favorites": preferences["favorites"],
+                "is_favorite": app_id in preferences["favorites"]
+            })
+        else:
+            return jsonify({"status": "error", "message": "Kon favoriet niet opslaan"}), 500
+    except Exception as e:
+        logging.error(f"Error toggling favorite: {e}")
+        return jsonify({"status": "error", "message": str(e)}), 500
+
+@app.route('/api/user/order', methods=['POST'])
+@auth.require_login
+def update_user_order():
+    """
+    API endpoint om de persoonlijke volgorde van apps aan te passen.
+    """
+    try:
+        user_info = auth.get_user_info()
+        if not user_info:
+            return jsonify({"status": "error", "message": "Niet ingelogd"}), 401
+        
+        # Valideer invoer
+        data = request.get_json()
+        if not data or "order" not in data:
+            return jsonify({"status": "error", "message": "Geen volgorde ontvangen"}), 400
+        
+        # Haal huidige apps op
+        apps = Config.load_apps().get("apps", [])
+        
+        # Controleer of de volgorde geldig is
+        order = data["order"]
+        if not all(isinstance(i, int) and 0 <= i < len(apps) for i in order):
+            return jsonify({"status": "error", "message": "Ongeldige volgorde"}), 400
+        
+        # Update de persoonlijke volgorde
+        if UserPreferences.update_order(user_info["id"], order):
+            return jsonify({"status": "success", "order": order})
+        else:
+            return jsonify({"status": "error", "message": "Kon volgorde niet opslaan"}), 500
+    except Exception as e:
+        logging.error(f"Error updating user order: {e}")
+        return jsonify({"status": "error", "message": str(e)}), 500
+
+@app.route('/api/user/preferences', methods=['GET'])
+@auth.require_login
+def get_user_preferences():
+    """
+    API endpoint om de voorkeuren van de gebruiker op te halen.
+    """
+    try:
+        user_info = auth.get_user_info()
+        if not user_info:
+            return jsonify({"status": "error", "message": "Niet ingelogd"}), 401
+        
+        preferences = UserPreferences.get_preferences(user_info["id"])
+        return jsonify({"status": "success", "preferences": preferences})
+    except Exception as e:
+        logging.error(f"Error getting user preferences: {e}")
         return jsonify({"status": "error", "message": str(e)}), 500
 
 @app.errorhandler(403)
