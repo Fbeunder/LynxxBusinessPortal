@@ -27,11 +27,11 @@ De applicatie volgt een modulaire structuur met de volgende hoofdcomponenten:
 - **Afhankelijkheid**: Afhankelijk van python-dotenv
 
 ### auth.py
-- **Status**: Implementatie bevat een bug met redirect URI's
+- **Status**: Volledig geïmplementeerd
 - **Bestandsnaam**: auth.py
 - **Functionaliteit**: Robuust authenticatiesysteem met Google OAuth integratie, domeinvalidatie, foutafhandeling, admin rechten controle, en decorators voor beveiligde routes
 - **Afhankelijkheid**: Afhankelijk van config.py
-- **Issue**: Bevat een redirect_uri_mismatch probleem waar de callback URL inconsistent wordt gegenereerd; moet worden geüpdatet om url_for() met _external=True parameter te gebruiken
+- **Opmerking**: Eerder bevatte dit module problemen met redirect URI's en HTTPS vereisten, maar deze zijn opgelost in PR #28 door consistent gebruik van url_for() met _external=True en het toevoegen van automatische detectie voor development/production omgevingen
 
 ### static/css/style.css
 - **Status**: Volledig geïmplementeerd
