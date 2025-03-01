@@ -44,9 +44,12 @@
 
 ## Nice-to-have stappen
 
-1. **Admin interface voor app-beheer** 🔄
-   - Mogelijkheid om apps toe te voegen/wijzigen/verwijderen
-   - Toegangsbeheer voor admin-functionaliteit
+1. **Admin interface voor app-beheer** ✅
+   - Implementeren van admin dashboard voor beheerders
+   - CRUD-interface voor apps (Create, Read, Update, Delete)
+   - Beveiligde toegang alleen voor admins
+   - Apps ordenen via drag & drop
+   - Admin-rechten configureerbaar via omgevingsvariabelen
 
 2. **Personalisatie-opties**
    - Mogelijkheid voor gebruikers om favoriete apps te markeren
@@ -72,6 +75,10 @@
    - Caching van app-gegevens
    - Lazy loading van 3D-elementen
 
-Alle must-have stappen zijn nu afgerond. De volgende stappen zijn nice-to-have uitbreidingen die de functionaliteit en gebruikerservaring kunnen verbeteren, maar niet noodzakelijk zijn voor de basiswerking van de applicatie. De applicatie heeft nu alle essentiële functionaliteit voor productief gebruik.
+Alle must-have stappen zijn afgerond en de eerste nice-to-have feature (admin interface voor app-beheer) is ook geïmplementeerd. De applicatie is nu volledig functioneel en geschikt voor productief gebruik. De overige nice-to-have features kunnen later worden toegevoegd om de gebruikerservaring verder te verbeteren, maar zijn niet essentieel voor de basiswerking van de portal.
 
-De huidige prioriteit is het implementeren van de admin interface voor app-beheer (issue #12 en gerelateerde PR #15), wat de eerste nice-to-have feature is om te implementeren.
+De volgende nice-to-have features kunnen nog worden geïmplementeerd in volgorde van prioriteit:
+1. Personalisatie-opties voor gebruikers
+2. Zoekfunctie voor apps
+3. Responsive design verbeteringen
+4. Performance optimalisatie
