@@ -49,10 +49,13 @@ def oauth_login():
     # Construct the request URL for Google login
     authorization_endpoint = google_provider_cfg["authorization_endpoint"]
     
+    # Gebruik url_for om de juiste callback URL te genereren
+    callback_url = url_for('google_callback', _external=True)
+    
     # Use the client to construct the request URL
     request_uri = client.prepare_request_uri(
         authorization_endpoint,
-        redirect_uri=request.base_url + "/callback",
+        redirect_uri=callback_url,
         scope=["openid", "email", "profile"],
     )
     
@@ -82,11 +85,14 @@ def oauth_callback():
     # Get the token endpoint
     token_endpoint = google_provider_cfg["token_endpoint"]
     
+    # Gebruik url_for om de juiste callback URL te genereren
+    callback_url = url_for('google_callback', _external=True)
+    
     # Prepare the token request
     token_url, headers, body = client.prepare_token_request(
         token_endpoint,
         authorization_response=request.url,
-        redirect_url=request.base_url,
+        redirect_url=callback_url,
         code=code
     )
     
