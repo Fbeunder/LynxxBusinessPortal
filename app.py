@@ -30,6 +30,11 @@ def _jinja2_filter_now(format_=None):
     """Jinja filter voor de huidige datum/tijd."""
     return datetime.datetime.now()
 
+# Maak 'now' functie beschikbaar in templates
+@app.context_processor
+def inject_now():
+    return {'now': datetime.datetime.now}
+
 @app.route('/')
 @auth.require_login
 def index():
