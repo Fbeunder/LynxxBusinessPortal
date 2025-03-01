@@ -115,6 +115,22 @@ De portal is nu bereikbaar op http://localhost:5000
 
 ## ⚙️ Configuratie
 
+### Google OAuth Configuratie
+
+Om de authenticatie correct te laten werken, moet je de volgende stappen uitvoeren in de Google Cloud Console:
+
+1. Ga naar https://console.cloud.google.com/
+2. Maak een nieuw project of selecteer een bestaand project
+3. Navigeer naar "APIs & Services" > "Credentials"
+4. Klik op "Create Credentials" > "OAuth client ID"
+5. Selecteer "Web application" als applicatietype
+6. Voeg de volgende redirect URIs toe:
+   - Voor lokale ontwikkeling: `http://localhost:5000/login/google/callback`
+   - Voor productie: `https://jouw-domein.com/login/google/callback`
+7. Noteer de Client ID en Client Secret en voeg deze toe aan je `.env` bestand
+
+**Belangrijk**: De exacte redirect URIs moeten overeenkomen met wat in de code wordt gebruikt. Als je fouten krijgt met "redirect_uri_mismatch", controleer dan of de URI in de Google Cloud Console overeenkomt met de callback URL in de applicatie.
+
 ### App-tegels configureren
 
 Applicaties worden geconfigureerd in het `apps.json` bestand. Je kunt apps toevoegen, wijzigen of verwijderen door dit bestand aan te passen:
@@ -164,6 +180,7 @@ LynxxBusinessPortal/
     ├── base.html           # Basis template
     ├── index.html          # Homepage met app-tegels
     ├── login.html          # Login pagina
+    ├── admin.html          # Admin interface
     └── error.html          # Error pagina
 ```
 
@@ -195,7 +212,6 @@ Handmatige tests:
 
 ## 📋 Toekomstige uitbreidingen
 
-- Admin interface voor app-beheer
 - Personalisatie-opties voor gebruikers
 - Zoekfunctionaliteit voor apps
 - Gebruiksstatistieken dashboard
