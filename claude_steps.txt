@@ -67,9 +67,11 @@
    - Apps ordenen via drag & drop
    - Admin-rechten configureerbaar via omgevingsvariabelen
 
-2. **Personalisatie-opties**
+2. **Personalisatie-opties** ✅
    - Mogelijkheid voor gebruikers om favoriete apps te markeren
    - Drag-and-drop functionaliteit voor het ordenen van apps
+   - Voorkeuren opslaan per gebruiker
+   - Visuele indicatie van favoriete apps
 
 3. **Uitgebreide app-metadata**
    - Iconen voor apps
@@ -93,13 +95,18 @@
 
 Alle must-have stappen zijn nu voltooid, inclusief de bugfixes voor de OAuth-gerelateerde problemen en de weergave van de apps op de hoofdpagina. De applicatie is nu volledig functioneel en geschikt voor productief gebruik.
 
+De eerste twee nice-to-have features zijn nu ook geïmplementeerd:
+1. ✅ Admin interface voor app-beheer
+2. ✅ Personalisatie-opties voor gebruikers
+
 De overige nice-to-have features kunnen naar wens worden geïmplementeerd om de gebruikerservaring verder te verbeteren, maar zijn niet essentieel voor de basiswerking van de portal.
 
 De volgende nice-to-have features kunnen nog worden geïmplementeerd in volgorde van prioriteit:
-1. Personalisatie-opties voor gebruikers
+1. Uitgebreide app-metadata
 2. Zoekfunctie voor apps
 3. Responsive design verbeteringen
 4. Performance optimalisatie
+5. Gebruiksstatistieken
 
 Alle verdere ontwikkeling betreft verbeteringen en nieuwe functionaliteit, de basiswerking van de applicatie is nu volledig geïmplementeerd en robuust.
 
