@@ -12,6 +12,7 @@ import os
 from flask import Flask, render_template, redirect, url_for, session, jsonify
 from flask_session import Session
 from config import Config
+import auth
 
 # Initialiseer Flask applicatie
 app = Flask(__name__)
@@ -23,23 +24,52 @@ app.config["SESSION_PERMANENT"] = False
 Session(app)
 
 @app.route('/')
+@auth.require_login
 def index():
     """
     Route voor de hoofdpagina.
     Als de gebruiker is ingelogd, toont deze de portal.
     Anders wordt de gebruiker doorgestuurd naar de inlogpagina.
     """
-    # Voorlopig alleen een basispagina renderen
-    # Authenticatie wordt later geïmplementeerd
-    return render_template('index.html')
+    # Haal gebruikersinformatie op om weer te geven in de template
+    user_info = auth.get_user_info()
+    
+    # Laad apps uit de configuratie
+    apps = Config.load_apps().get("apps", [])
+    
+    return render_template('index.html', user=user_info, apps=apps)
 
 @app.route('/login')
 def login():
     """
     Route voor de inlogpagina.
-    Hier zal later Google OAuth worden geïmplementeerd.
     """
+    # Als de gebruiker al is ingelogd, stuur door naar de hoofdpagina
+    if auth.get_user_info():
+        return redirect(url_for('index'))
+    
     return render_template('login.html')
+
+@app.route('/login/google')
+def google_login():
+    """
+    Start de Google OAuth flow.
+    """
+    return auth.oauth_login()
+
+@app.route('/login/google/callback')
+def google_callback():
+    """
+    Verwerkt de Google OAuth callback.
+    """
+    return auth.oauth_callback()
+
+@app.route('/logout')
+def logout():
+    """
+    Logt de gebruiker uit.
+    """
+    return auth.logout()
 
 @app.errorhandler(404)
 def page_not_found(e):
