@@ -2,38 +2,31 @@
 
 ## Must-have stappen
 
-1. **Basis projectstructuur opzetten**
+1. **Basis projectstructuur opzetten** ✅
    - Project directory structuur creëren
    - Flask applicatie basis opzetten (app.py)
    - Mappenstructuur voor templates en static bestanden
 
-2. **Configuratiesysteem implementeren**
-   - config.py module implementeren
-   - apps.json configuratiebestand aanmaken met initiële apps
-
-3. **Basistemplate en styling**
-   - Base template opzetten
-   - CSS stijlen definiëren volgens Lynxx huisstijl
-   - Responsieve layout voor de app-tegels
-
-4. **3D Lynxx logo implementeren**
-   - Three.js integreren
-   - 3D model of tekst voor het logo implementeren
-   - Animatie voor rotatie toevoegen
-
-5. **Google OAuth authenticatie implementeren**
+2. **Google OAuth authenticatie implementeren**
    - OAuth flow implementeren voor Google accounts
    - Domeinvalidatie voor @lynxx.com
    - Login- en sessiemanagement
+   - Gebruikersinformatie ophalen en weergeven
 
-6. **App-tegels functionaliteit**
+3. **App-tegels functionaliteit dynamisch maken**
    - Dynamisch laden van apps uit configuratie
-   - Tegels weergeven op de hoofdpagina
-   - Doorklik-functionaliteit naar de apps
+   - Apps.json gebruiken om tegels te genereren 
+   - Correcte doorklik-functionaliteit naar de apps
 
-7. **Gebruikersnaam weergave**
-   - Gebruikersinformatie ophalen uit Google profiel
-   - Voornaam weergeven in welkomstbericht
+4. **3D Lynxx logo implementeren met volledige functionaliteit**
+   - Three.js animatie afmaken
+   - Optimaliseren van 3D-rendering
+   - Tekst vervangen door echt 3D-model
+
+5. **Configuratiesysteem uitbreiden**
+   - Omgevingsvariabelen gebruiken voor configuratie
+   - Admin instellingen toevoegen
+   - Betere error handling implementeren
 
 ## Nice-to-have stappen
 
@@ -65,4 +58,4 @@
    - Caching van app-gegevens
    - Lazy loading van 3D-elementen
 
-De huidige focus ligt op het implementeren van de must-have stappen om een werkende basis-versie van de applicatie te ontwikkelen. Na voltooiing van de must-have stappen kunnen de nice-to-have functionaliteiten worden overwogen voor toekomstige iteraties van het project.
+De eerste must-have stap is afgerond. De volgende stap is het implementeren van de Google OAuth authenticatie om de toegang tot de portal te beperken tot gebruikers met een @lynxx.com e-mailadres. Alle huidige stappen zijn noodzakelijk voor de basiswerking van de applicatie.
