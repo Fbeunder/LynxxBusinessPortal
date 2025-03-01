@@ -9,6 +9,7 @@ Het bevat de Flask applicatie en routes voor de webinterface.
 """
 
 import os
+import datetime
 from flask import Flask, render_template, redirect, url_for, session, jsonify
 from flask_session import Session
 from config import Config
@@ -22,6 +23,12 @@ app.config.from_object(Config)
 app.config["SESSION_TYPE"] = "filesystem"
 app.config["SESSION_PERMANENT"] = False
 Session(app)
+
+# Jinja filters toevoegen
+@app.template_filter('now')
+def _jinja2_filter_now(format_=None):
+    """Jinja filter voor de huidige datum/tijd."""
+    return datetime.datetime.now()
 
 @app.route('/')
 @auth.require_login
