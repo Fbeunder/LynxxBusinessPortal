@@ -4,41 +4,44 @@
 
 {% block content %}
     <div class="apps-grid">
-        <!-- Dit wordt later dynamisch gevuld vanuit apps.json -->
-        <div class="app-tile">
-            <a href="https://gmail.com" target="_blank">
-                <div class="app-icon">
-                    <span class="icon">📧</span>
+        {% if apps %}
+            {% for app in apps %}
+                <div class="app-tile" data-app-id="{{ loop.index }}">
+                    <a href="{{ app.url }}" target="_blank" rel="noopener">
+                        <div class="app-icon">
+                            <span class="icon">{{ app.icon|default('🔗') }}</span>
+                        </div>
+                        <div class="app-info">
+                            <h3>{{ app.name }}</h3>
+                            <p>{{ app.description }}</p>
+                        </div>
+                    </a>
                 </div>
-                <div class="app-info">
-                    <h3>Gmail</h3>
-                    <p>Google Mail voor Lynxx medewerkers</p>
-                </div>
-            </a>
-        </div>
-        
-        <div class="app-tile">
-            <a href="https://lynxx.harvestapp.com" target="_blank">
-                <div class="app-icon">
-                    <span class="icon">⏰</span>
-                </div>
-                <div class="app-info">
-                    <h3>Harvest</h3>
-                    <p>Tijdsregistratie voor projecten</p>
-                </div>
-            </a>
-        </div>
-        
-        <div class="app-tile">
-            <a href="https://lynxx.atlassian.net/wiki/home" target="_blank">
-                <div class="app-icon">
-                    <span class="icon">📚</span>
-                </div>
-                <div class="app-info">
-                    <h3>Confluence</h3>
-                    <p>Lynxx kennisbank en documentatie</p>
-                </div>
-            </a>
-        </div>
+            {% endfor %}
+        {% else %}
+            <div class="empty-state">
+                <p>Geen applicaties beschikbaar. Neem contact op met de beheerder.</p>
+            </div>
+        {% endif %}
     </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script>
+        // Extra JavaScript voor app-tegels functionaliteit
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Loaded app tiles: {{ apps|length }}');
+            
+            // Analytics functionaliteit - telt klikken op app tegels
+            const appTiles = document.querySelectorAll('.app-tile');
+            appTiles.forEach(tile => {
+                tile.addEventListener('click', function() {
+                    const appName = this.querySelector('h3').textContent;
+                    console.log(`App gebruikt: ${appName}`);
+                    // Hier kan later analytische tracking worden toegevoegd
+                });
+            });
+        });
+    </script>
 {% endblock %}
