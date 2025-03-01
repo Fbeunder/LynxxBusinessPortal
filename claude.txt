@@ -27,11 +27,11 @@ De applicatie volgt een modulaire structuur met de volgende hoofdcomponenten:
 - **Afhankelijkheid**: Afhankelijk van python-dotenv
 
 ### auth.py
-- **Status**: Volledig geïmplementeerd en bugfix toegepast
+- **Status**: Volledig geïmplementeerd en bugfixes toegepast
 - **Bestandsnaam**: auth.py
 - **Functionaliteit**: Robuust authenticatiesysteem met Google OAuth integratie, domeinvalidatie, foutafhandeling, admin rechten controle, en decorators voor beveiligde routes
 - **Afhankelijkheid**: Afhankelijk van config.py
-- **Opmerking**: Bevat automatische detectie voor development/production omgevingen met uitschakeling van HTTPS-vereiste (OAUTHLIB_INSECURE_TRANSPORT=1) in ontwikkelomgeving, en consistent gebruik van url_for() met _external=True voor callback URL's
+- **Opmerking**: Bevat verbeterde automatische detectie voor development/production omgevingen met uitschakeling van HTTPS-vereiste (OAUTHLIB_INSECURE_TRANSPORT=1) in ontwikkelomgeving via twee methoden (FLASK_ENV en Config.DEBUG), en consistent gebruik van url_for() met _external=True voor callback URL's. Recentelijk gefixed om robuuster te werken bij InsecureTransportError.
 
 ### static/css/style.css
 - **Status**: Volledig geïmplementeerd
@@ -96,13 +96,13 @@ De applicatie volgt een modulaire structuur met de volgende hoofdcomponenten:
 ### .env.example
 - **Status**: Volledig geïmplementeerd en bijgewerkt
 - **Bestandsnaam**: .env.example
-- **Functionaliteit**: Voorbeeldbestand voor omgevingsvariabelen configuratie, inclusief admin e-mailadressen en FLASK_ENV instellingen voor OAuth
+- **Functionaliteit**: Voorbeeldbestand voor omgevingsvariabelen configuratie, inclusief admin e-mailadressen en FLASK_ENV instellingen voor OAuth, met gedetailleerde documentatie voor ontwikkelaars
 - **Afhankelijkheid**: Geen afhankelijkheden
 
 ### README.md
 - **Status**: Volledig geïmplementeerd en uitgebreid
 - **Bestandsnaam**: README.md
-- **Functionaliteit**: Uitgebreide documentatie over de applicatie, installatie, configuratie en gebruik, inclusief instructies voor het opzetten en beheren van virtuele omgevingen en Google OAuth configuratie
+- **Functionaliteit**: Uitgebreide documentatie over de applicatie, installatie, configuratie en gebruik, inclusief instructies voor het opzetten en beheren van virtuele omgevingen, Google OAuth configuratie en troubleshooting voor OAuth-problemen
 - **Afhankelijkheid**: Geen afhankelijkheden
 
 ### requirements.txt
