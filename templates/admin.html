@@ -67,6 +67,16 @@
         color: white;
     }
     
+    .btn-success {
+        background-color: #28a745;
+        color: white;
+    }
+    
+    .home-link {
+        margin-bottom: 20px;
+        display: inline-block;
+    }
+    
     .app-list {
         list-style: none;
         padding: 0;
@@ -157,6 +167,7 @@
     <div class="admin-section">
         <h1 class="admin-title">Admin Dashboard</h1>
         <p>Welkom bij het admin dashboard. Hier kun je apps beheren in de Lynxx Business Portal.</p>
+        <a href="{{ url_for('index') }}" class="btn btn-success home-link">Terug naar hoofdpagina</a>
     </div>
     
     <div id="notifications"></div>
