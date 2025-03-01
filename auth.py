@@ -17,8 +17,10 @@ from oauthlib.oauth2 import WebApplicationClient
 from config import Config
 
 # Schakel HTTPS-verificatie uit voor development
-if os.environ.get('FLASK_ENV') == 'development':
+# Controleer zowel FLASK_ENV als de DEBUG setting voor zekerheid
+if os.environ.get('FLASK_ENV') == 'development' or Config.DEBUG:
     os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
+    print("Ontwikkelomgeving gedetecteerd: HTTPS-vereiste voor OAuth uitgeschakeld")
 
 # OAuth Client setup
 client = WebApplicationClient(Config.GOOGLE_CLIENT_ID)
