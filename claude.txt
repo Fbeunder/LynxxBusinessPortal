@@ -10,31 +10,32 @@ De applicatie volgt een modulaire structuur met de volgende hoofdcomponenten:
 - **Backend**: Python-gebaseerde server met authenticatie, configuratie en API-endpoints
 - **Configuratie**: Configuratiebestanden voor app definities en instellingen
 - **Authenticatie**: Module voor het verifiëren van gebruikers via Google OAuth
+- **Admin Interface**: Beheerdersinterface voor het beheren van app-tegels
 
 ## 3. Modules
 
 ### app.py
 - **Status**: Volledig geïmplementeerd
 - **Bestandsnaam**: app.py
-- **Functionaliteit**: Hoofdapplicatiebestand met Flask-serverimplementatie, route-beheer, verbeterde logging, foutafhandeling en configuratie validatie
+- **Functionaliteit**: Hoofdapplicatiebestand met Flask-serverimplementatie, route-beheer, verbeterde logging, foutafhandeling, configuratie validatie, en admin API endpoints
 - **Afhankelijkheid**: Afhankelijk van alle andere modules
 
 ### config.py
 - **Status**: Volledig geïmplementeerd
 - **Bestandsnaam**: config.py
-- **Functionaliteit**: Geavanceerd configuratiebeheersysteem met ondersteuning voor omgevingsvariabelen, robuuste validatie, admin instellingen en failsafe defaults
+- **Functionaliteit**: Geavanceerd configuratiebeheersysteem met ondersteuning voor omgevingsvariabelen, robuuste validatie, admin instellingen, app validatie en failsafe defaults
 - **Afhankelijkheid**: Afhankelijk van python-dotenv
 
 ### auth.py
 - **Status**: Volledig geïmplementeerd
 - **Bestandsnaam**: auth.py
-- **Functionaliteit**: Robuust authenticatiesysteem met Google OAuth integratie, domeinvalidatie, foutafhandeling en admin rechten controle
+- **Functionaliteit**: Robuust authenticatiesysteem met Google OAuth integratie, domeinvalidatie, foutafhandeling, admin rechten controle en admin autorisatie decorator
 - **Afhankelijkheid**: Afhankelijk van config.py
 
 ### static/css/style.css
 - **Status**: Volledig geïmplementeerd
 - **Bestandsnaam**: static/css/style.css
-- **Functionaliteit**: CSS-styling voor de webinterface, inclusief 3D logo containers en authenticatie-elementen
+- **Functionaliteit**: CSS-styling voor de webinterface, inclusief 3D logo containers, authenticatie-elementen en admin interface styling
 - **Afhankelijkheid**: Geen afhankelijkheden
 
 ### static/js/main.js
@@ -58,7 +59,7 @@ De applicatie volgt een modulaire structuur met de volgende hoofdcomponenten:
 ### templates/base.html
 - **Status**: Volledig geïmplementeerd
 - **Bestandsnaam**: templates/base.html
-- **Functionaliteit**: Basis HTML-sjabloon voor alle pagina's, inclusief gebruikersinfo-weergave en 3D logo container
+- **Functionaliteit**: Basis HTML-sjabloon voor alle pagina's, inclusief gebruikersinfo-weergave, 3D logo container en admin navigatie
 - **Afhankelijkheid**: Geen afhankelijkheden
 
 ### templates/index.html
@@ -73,10 +74,16 @@ De applicatie volgt een modulaire structuur met de volgende hoofdcomponenten:
 - **Functionaliteit**: Inlogpagina met Google OAuth integratie
 - **Afhankelijkheid**: Afhankelijk van base.html
 
+### templates/admin.html
+- **Status**: Volledig geïmplementeerd
+- **Bestandsnaam**: templates/admin.html
+- **Functionaliteit**: Admin interface voor het beheren van app-tegels, met CRUD functionaliteit en drag & drop herordening
+- **Afhankelijkheid**: Afhankelijk van base.html
+
 ### templates/error.html
 - **Status**: Volledig geïmplementeerd
 - **Bestandsnaam**: templates/error.html
-- **Functionaliteit**: Verbeterde foutpagina's met ondersteuning voor verschillende foutcodes en informatieve meldingen
+- **Functionaliteit**: Verbeterde foutpagina's met ondersteuning voor verschillende foutcodes (404, 403, 500) en informatieve meldingen
 - **Afhankelijkheid**: Afhankelijk van base.html
 
 ### apps.json
@@ -88,7 +95,7 @@ De applicatie volgt een modulaire structuur met de volgende hoofdcomponenten:
 ### .env.example
 - **Status**: Volledig geïmplementeerd
 - **Bestandsnaam**: .env.example
-- **Functionaliteit**: Voorbeeldbestand voor omgevingsvariabelen configuratie
+- **Functionaliteit**: Voorbeeldbestand voor omgevingsvariabelen configuratie, inclusief admin e-mailadressen
 - **Afhankelijkheid**: Geen afhankelijkheden
 
 ### README.md
@@ -100,5 +107,5 @@ De applicatie volgt een modulaire structuur met de volgende hoofdcomponenten:
 ### requirements.txt
 - **Status**: Volledig geïmplementeerd
 - **Bestandsnaam**: requirements.txt
-- **Functionaliteit**: Lijst van Python-afhankelijkheden voor de applicatie
+- **Functionaliteit**: Lijst van Python-afhankelijkheden voor de applicatie, inclusief python-dotenv
 - **Afhankelijkheid**: Geen afhankelijkheden
