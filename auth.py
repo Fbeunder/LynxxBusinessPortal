@@ -19,6 +19,11 @@ from config import Config
 # OAuth Client setup
 client = WebApplicationClient(Config.GOOGLE_CLIENT_ID)
 
+# Staat OAuth toe op HTTP in ontwikkelomgeving
+# LET OP: Dit mag alleen in dev/test-omgevingen worden gebruikt!
+if Config.FLASK_ENV == "development":
+    os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
+
 
 def get_google_provider_cfg():
     """
@@ -49,10 +54,13 @@ def oauth_login():
     # Construct the request URL for Google login
     authorization_endpoint = google_provider_cfg["authorization_endpoint"]
     
+    # Gebruik url_for met _external=True om volledige URL te genereren
+    callback_url = url_for('google_callback', _external=True)
+    
     # Use the client to construct the request URL
     request_uri = client.prepare_request_uri(
         authorization_endpoint,
-        redirect_uri=request.base_url + "/callback",
+        redirect_uri=callback_url,
         scope=["openid", "email", "profile"],
     )
     
@@ -82,11 +90,14 @@ def oauth_callback():
     # Get the token endpoint
     token_endpoint = google_provider_cfg["token_endpoint"]
     
+    # Gebruik url_for met _external=True om volledige URL te genereren
+    callback_url = url_for('google_callback', _external=True)
+    
     # Prepare the token request
     token_url, headers, body = client.prepare_token_request(
         token_endpoint,
         authorization_response=request.url,
-        redirect_url=request.base_url,
+        redirect_url=callback_url,
         code=code
     )
     
