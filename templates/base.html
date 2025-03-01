@@ -12,7 +12,7 @@
     <header>
         <div class="header-container">
             <div class="logo-container">
-                <div id="logo3d-container"></div>
+                <div id="logo3d"></div>
             </div>
             <div class="header-title">
                 <h1>Lynxx Business Portal</h1>
@@ -55,8 +55,9 @@
         </div>
     </footer>
     
-    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/lynxx-logo-model.js') }}"></script>
     <script src="{{ url_for('static', filename='js/logo3d.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     {% block extra_scripts %}{% endblock %}
 </body>
 </html>
