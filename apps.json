@@ -1,0 +1,40 @@
+{
+    "apps": [
+        {
+            "name": "Gmail",
+            "url": "https://gmail.com",
+            "description": "Google Mail voor Lynxx medewerkers",
+            "icon": "mail"
+        },
+        {
+            "name": "Google Drive",
+            "url": "https://drive.google.com",
+            "description": "Bestanden opslaan en delen",
+            "icon": "cloud"
+        },
+        {
+            "name": "Harvest",
+            "url": "https://lynxx.harvestapp.com",
+            "description": "Tijdsregistratie platform",
+            "icon": "clock"
+        },
+        {
+            "name": "Confluence",
+            "url": "https://lynxx.atlassian.net/wiki/home",
+            "description": "Kennis database",
+            "icon": "book"
+        },
+        {
+            "name": "Jira",
+            "url": "https://lynxx.atlassian.net/jira",
+            "description": "Project management tool",
+            "icon": "clipboard"
+        },
+        {
+            "name": "Calendar",
+            "url": "https://calendar.google.com",
+            "description": "Google agenda",
+            "icon": "calendar"
+        }
+    ]
+}
