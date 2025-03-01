@@ -27,11 +27,11 @@ De applicatie volgt een modulaire structuur met de volgende hoofdcomponenten:
 - **Afhankelijkheid**: Afhankelijk van python-dotenv
 
 ### auth.py
-- **Status**: Volledig geïmplementeerd
+- **Status**: Volledig geïmplementeerd en bugfix toegepast
 - **Bestandsnaam**: auth.py
 - **Functionaliteit**: Robuust authenticatiesysteem met Google OAuth integratie, domeinvalidatie, foutafhandeling, admin rechten controle, en decorators voor beveiligde routes
 - **Afhankelijkheid**: Afhankelijk van config.py
-- **Opmerking**: Eerder bevatte dit module problemen met redirect URI's en HTTPS vereisten, maar deze zijn opgelost in PR #28 door consistent gebruik van url_for() met _external=True en het toevoegen van automatische detectie voor development/production omgevingen
+- **Opmerking**: Bevat automatische detectie voor development/production omgevingen met uitschakeling van HTTPS-vereiste (OAUTHLIB_INSECURE_TRANSPORT=1) in ontwikkelomgeving, en consistent gebruik van url_for() met _external=True voor callback URL's
 
 ### static/css/style.css
 - **Status**: Volledig geïmplementeerd
@@ -94,15 +94,15 @@ De applicatie volgt een modulaire structuur met de volgende hoofdcomponenten:
 - **Afhankelijkheid**: Geen afhankelijkheden
 
 ### .env.example
-- **Status**: Volledig geïmplementeerd
+- **Status**: Volledig geïmplementeerd en bijgewerkt
 - **Bestandsnaam**: .env.example
-- **Functionaliteit**: Voorbeeldbestand voor omgevingsvariabelen configuratie, inclusief admin e-mailadressen
+- **Functionaliteit**: Voorbeeldbestand voor omgevingsvariabelen configuratie, inclusief admin e-mailadressen en FLASK_ENV instellingen voor OAuth
 - **Afhankelijkheid**: Geen afhankelijkheden
 
 ### README.md
-- **Status**: Volledig geïmplementeerd en uitgebreid met venv-instructies
+- **Status**: Volledig geïmplementeerd en uitgebreid
 - **Bestandsnaam**: README.md
-- **Functionaliteit**: Uitgebreide documentatie over de applicatie, installatie, configuratie en gebruik, inclusief instructies voor het opzetten en beheren van virtuele omgevingen
+- **Functionaliteit**: Uitgebreide documentatie over de applicatie, installatie, configuratie en gebruik, inclusief instructies voor het opzetten en beheren van virtuele omgevingen en Google OAuth configuratie
 - **Afhankelijkheid**: Geen afhankelijkheden
 
 ### requirements.txt
