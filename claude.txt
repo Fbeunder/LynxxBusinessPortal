@@ -27,9 +27,9 @@ De applicatie volgt een modulaire structuur met de volgende hoofdcomponenten:
 - **Afhankelijkheid**: Afhankelijk van python-dotenv
 
 ### auth.py
-- **Status**: Volledig geïmplementeerd
+- **Status**: Volledig geïmplementeerd en bugfix toegepast
 - **Bestandsnaam**: auth.py
-- **Functionaliteit**: Robuust authenticatiesysteem met Google OAuth integratie, domeinvalidatie, foutafhandeling, admin rechten controle, en decorators voor beveiligde routes
+- **Functionaliteit**: Robuust authenticatiesysteem met Google OAuth integratie, domeinvalidatie, foutafhandeling, admin rechten controle, en decorators voor beveiligde routes. Bevat nu verbeterde URI-handling om redirect_uri_mismatch fouten te voorkomen.
 - **Afhankelijkheid**: Afhankelijk van config.py
 
 ### static/css/style.css
@@ -99,9 +99,9 @@ De applicatie volgt een modulaire structuur met de volgende hoofdcomponenten:
 - **Afhankelijkheid**: Geen afhankelijkheden
 
 ### README.md
-- **Status**: Volledig geïmplementeerd en uitgebreid met venv-instructies
+- **Status**: Volledig geïmplementeerd en bijgewerkt met OAuth instructies
 - **Bestandsnaam**: README.md
-- **Functionaliteit**: Uitgebreide documentatie over de applicatie, installatie, configuratie en gebruik, inclusief instructies voor het opzetten en beheren van virtuele omgevingen
+- **Functionaliteit**: Uitgebreide documentatie over de applicatie, installatie, configuratie en gebruik, inclusief instructies voor het opzetten en beheren van virtuele omgevingen en gedetailleerde Google OAuth configuratie
 - **Afhankelijkheid**: Geen afhankelijkheden
 
 ### requirements.txt
