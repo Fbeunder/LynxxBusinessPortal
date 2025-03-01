@@ -25,7 +25,8 @@ o	Welke tests geschreven moeten worden
 o	Acceptatiecriteria
 o	Als een code script tussen de 200 en 250 regels lijkt te krijgen, probeer het dan verder op te splitsen in losse modules.
 3. Labels: Toevoegen van labels "must-have", "nice-to-have" "bug"
-4. Noteer de <commit-hash> die zijn uitgevoerd.
+4. Na het oplossen van een issue, vul het issue aan met wat er is gedaan.
+5. Noteer de <commit-hash> die zijn uitgevoerd.
 
 Hanteer de volgeden Werkwijze voor werken met Git en wijzigingen beheren
 1. Code ophalen: Haal de meest recente versie van de code op uit de centrale repository, zodat je werkt met de laatste updates.
