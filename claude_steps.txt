@@ -89,3 +89,5 @@ De volgende nice-to-have features kunnen nog worden geïmplementeerd in volgorde
 2. Zoekfunctie voor apps
 3. Responsive design verbeteringen
 4. Performance optimalisatie
+
+Alle verdere ontwikkeling betreft verbeteringen en nieuwe functionaliteit, de basiswerking van de applicatie is nu volledig geïmplementeerd en robuust.
