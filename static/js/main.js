@@ -8,19 +8,57 @@
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Lynxx Business Portal loaded');
     
-    // Event listeners voor app tegels - voor later gebruik
-    const appTiles = document.querySelectorAll('.app-tile');
-    if (appTiles) {
-        appTiles.forEach(tile => {
-            tile.addEventListener('click', function(e) {
-                // Open links in een nieuw tabblad
-                // Dit is al ingesteld met target="_blank" in de HTML, dus dit is alleen voor toekomstige functionaliteit
-                console.log('App tile clicked:', tile.querySelector('h3').textContent);
-            });
-        });
-    }
+    // Event listeners voor app tegels
+    initializeAppTiles();
     
     // Flash messages automatisch verbergen na 5 seconden
+    handleFlashMessages();
+    
+    // Logout bevestiging
+    setupLogoutConfirmation();
+});
+
+/**
+ * Initialiseert functionaliteit voor app tegels
+ */
+function initializeAppTiles() {
+    const appTiles = document.querySelectorAll('.app-tile');
+    if (appTiles && appTiles.length > 0) {
+        console.log(`Gevonden app tegels: ${appTiles.length}`);
+        
+        appTiles.forEach(tile => {
+            // Voeg hover effect toe
+            tile.addEventListener('mouseenter', function() {
+                this.classList.add('hover');
+            });
+            
+            tile.addEventListener('mouseleave', function() {
+                this.classList.remove('hover');
+            });
+            
+            // Open links en log gebruik
+            tile.addEventListener('click', function(e) {
+                const appName = this.querySelector('h3').textContent;
+                const appId = this.getAttribute('data-app-id');
+                
+                console.log(`App geopend: ${appName} (ID: ${appId})`);
+                
+                // Hier kunnen we later gebruiksstatistieken bijhouden
+                // Bijvoorbeeld via een AJAX call naar een /api/track endpoint
+                
+                // We laten de standaard link navigatie doorgaan
+                // omdat we target="_blank" gebruiken in de HTML
+            });
+        });
+    } else {
+        console.warn('Geen app tegels gevonden in de DOM');
+    }
+}
+
+/**
+ * Handelt flash messages af (automatisch verbergen)
+ */
+function handleFlashMessages() {
     const flashMessages = document.querySelectorAll('.flash-message');
     if (flashMessages.length > 0) {
         flashMessages.forEach(message => {
@@ -33,8 +71,12 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 5000);
         });
     }
-    
-    // Logout bevestiging
+}
+
+/**
+ * Configureert logout bevestiging
+ */
+function setupLogoutConfirmation() {
     const logoutBtn = document.querySelector('.logout-btn');
     if (logoutBtn) {
         logoutBtn.addEventListener('click', function(e) {
@@ -43,13 +85,40 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-});
+}
 
 /**
- * Helper functie voor datum en tijd - voor later gebruik
+ * Helper functie voor datum en tijd
  * @returns {string} De huidige datum en tijd in een geformatteerde string
  */
 function getCurrentDateTime() {
     const now = new Date();
-    return now.toLocaleString();
+    return now.toLocaleString('nl-NL', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+    });
+}
+
+/**
+ * Filtert app tegels op basis van zoekopdracht (voor toekomstige zoekfunctionaliteit)
+ * @param {string} query - De zoekopdracht
+ */
+function filterApps(query) {
+    // Deze functie is voorbereid voor toekomstige zoekfunctionaliteit
+    const appTiles = document.querySelectorAll('.app-tile');
+    const normalizedQuery = query.toLowerCase().trim();
+    
+    appTiles.forEach(tile => {
+        const appName = tile.querySelector('h3').textContent.toLowerCase();
+        const appDesc = tile.querySelector('p').textContent.toLowerCase();
+        
+        if (appName.includes(normalizedQuery) || appDesc.includes(normalizedQuery)) {
+            tile.style.display = '';
+        } else {
+            tile.style.display = 'none';
+        }
+    });
 }
