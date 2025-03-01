@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Lynxx Business Portal - Home{% endblock %}
+
+{% block content %}
+    <div class="apps-grid">
+        <!-- Dit wordt later dynamisch gevuld vanuit apps.json -->
+        <div class="app-tile">
+            <a href="https://gmail.com" target="_blank">
+                <div class="app-icon">
+                    <span class="icon">📧</span>
+                </div>
+                <div class="app-info">
+                    <h3>Gmail</h3>
+                    <p>Google Mail voor Lynxx medewerkers</p>
+                </div>
+            </a>
+        </div>
+        
+        <div class="app-tile">
+            <a href="https://lynxx.harvestapp.com" target="_blank">
+                <div class="app-icon">
+                    <span class="icon">⏰</span>
+                </div>
+                <div class="app-info">
+                    <h3>Harvest</h3>
+                    <p>Tijdsregistratie voor projecten</p>
+                </div>
+            </a>
+        </div>
+        
+        <div class="app-tile">
+            <a href="https://lynxx.atlassian.net/wiki/home" target="_blank">
+                <div class="app-icon">
+                    <span class="icon">📚</span>
+                </div>
+                <div class="app-info">
+                    <h3>Confluence</h3>
+                    <p>Lynxx kennisbank en documentatie</p>
+                </div>
+            </a>
+        </div>
+    </div>
+{% endblock %}
