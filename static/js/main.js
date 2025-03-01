@@ -20,12 +20,27 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Login button functionaliteit - voor later gebruik
-    const loginButton = document.querySelector('.google-login-btn');
-    if (loginButton) {
-        loginButton.addEventListener('click', function(e) {
-            console.log('Login button clicked');
-            // OAuth login zal later worden geïmplementeerd
+    // Flash messages automatisch verbergen na 5 seconden
+    const flashMessages = document.querySelectorAll('.flash-message');
+    if (flashMessages.length > 0) {
+        flashMessages.forEach(message => {
+            setTimeout(() => {
+                message.style.opacity = '0';
+                message.style.transition = 'opacity 0.5s ease-out';
+                setTimeout(() => {
+                    message.remove();
+                }, 500);
+            }, 5000);
+        });
+    }
+    
+    // Logout bevestiging
+    const logoutBtn = document.querySelector('.logout-btn');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', function(e) {
+            if (!confirm('Weet je zeker dat je wilt uitloggen?')) {
+                e.preventDefault();
+            }
         });
     }
 });
