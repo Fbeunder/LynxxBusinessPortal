@@ -36,6 +36,7 @@
    - Installatiehandleiding
    - Configuratie informatie
    - Gebruiksinstructies
+   - Instructies voor virtuele omgeving (venv) toegevoegd
 
 ## Nice-to-have stappen
 
@@ -69,4 +70,4 @@
 
 Alle must-have stappen zijn nu afgerond. De volgende stappen zijn nice-to-have uitbreidingen die de functionaliteit en gebruikerservaring kunnen verbeteren, maar niet noodzakelijk zijn voor de basiswerking van de applicatie. De applicatie heeft nu alle essentiële functionaliteit voor productief gebruik.
 
-De huidige prioriteit is het mergen van pull request #10 voor het configuratiesysteem. Daarna kan begonnen worden met de implementatie van de admin interface voor app-beheer (issue #12), wat de eerste nice-to-have feature is om te implementeren.
+De huidige prioriteit is het mergen van pull request #10 voor het configuratiesysteem. Daarna kan begonnen worden met de implementatie van de admin interface voor app-beheer (issue #12 en gerelateerde PR #15), wat de eerste nice-to-have feature is om te implementeren.
