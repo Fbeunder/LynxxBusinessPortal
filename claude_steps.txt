@@ -47,6 +47,12 @@
    - Opgelost InsecureTransportError door automatische detectie van development/production omgeving
    - Bijgewerkte documentatie met instructies voor correcte OAuth configuratie en HTTPS vereisten
 
+9. **Fix InsecureTransportError in ontwikkelomgeving** ✅
+   - Verbeterde detectie van ontwikkelomgeving door zowel FLASK_ENV als Config.DEBUG te controleren
+   - Uitgebreide documentatie over OAuth-problemen voor ontwikkelaars
+   - Toegevoegde troubleshooting sectie in README.md
+   - Uitgebreide instructies in .env.example
+
 ## Nice-to-have stappen
 
 1. **Admin interface voor app-beheer** ✅
@@ -80,7 +86,7 @@
    - Caching van app-gegevens
    - Lazy loading van 3D-elementen
 
-Alle must-have stappen zijn nu voltooid, inclusief de bugfix voor de OAuth-gerelateerde problemen. De applicatie is nu volledig functioneel en geschikt voor productief gebruik.
+Alle must-have stappen zijn nu voltooid, inclusief de bugfixes voor de OAuth-gerelateerde problemen. De applicatie is nu volledig functioneel en geschikt voor productief gebruik.
 
 De overige nice-to-have features kunnen naar wens worden geïmplementeerd om de gebruikerservaring verder te verbeteren, maar zijn niet essentieel voor de basiswerking van de portal.
 
@@ -91,3 +97,7 @@ De volgende nice-to-have features kunnen nog worden geïmplementeerd in volgorde
 4. Performance optimalisatie
 
 Alle verdere ontwikkeling betreft verbeteringen en nieuwe functionaliteit, de basiswerking van de applicatie is nu volledig geïmplementeerd en robuust.
+
+---
+
+**Project conclusie**: Alle essentiële functionaliteit is geïmplementeerd en alle bekende bugs zijn opgelost. Het project is klaar voor gebruik. Verdere ontwikkeling zou alleen nog verbeteringen betreffen die niet noodzakelijk zijn voor de basiswerking van de applicatie.
