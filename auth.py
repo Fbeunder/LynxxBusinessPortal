@@ -11,10 +11,14 @@ Het implementeert Google OAuth voor authenticatie met @lynxx.com accounts.
 import os
 import functools
 import json
-from flask import redirect, request, url_for, session, flash, abort
+from flask import redirect, request, url_for, session, flash, abort, current_app
 import requests
 from oauthlib.oauth2 import WebApplicationClient
 from config import Config
+
+# Schakel HTTPS-verificatie uit voor development
+if os.environ.get('FLASK_ENV') == 'development':
+    os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 
 # OAuth Client setup
 client = WebApplicationClient(Config.GOOGLE_CLIENT_ID)
@@ -52,7 +56,7 @@ def oauth_login():
     # Use the client to construct the request URL
     request_uri = client.prepare_request_uri(
         authorization_endpoint,
-        redirect_uri=request.base_url + "/callback",
+        redirect_uri=url_for('google_callback', _external=True),
         scope=["openid", "email", "profile"],
     )
     
@@ -86,7 +90,7 @@ def oauth_callback():
     token_url, headers, body = client.prepare_token_request(
         token_endpoint,
         authorization_response=request.url,
-        redirect_url=request.base_url,
+        redirect_url=url_for('google_callback', _external=True),
         code=code
     )
     
