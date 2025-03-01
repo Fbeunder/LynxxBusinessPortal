@@ -88,6 +88,7 @@ Je terminal prompt zou nu moeten veranderen, wat aangeeft dat je virtuele omgevi
    GOOGLE_CLIENT_ID=jouw_google_client_id
    GOOGLE_CLIENT_SECRET=jouw_google_client_secret
    ADMIN_EMAILS=admin1@lynxx.com,admin2@lynxx.com
+   FLASK_ENV=development  # Gebruik 'development' voor lokale ontwikkeling, 'production' voor productie
    ```
 
 6. Start de applicatie:
@@ -132,6 +133,27 @@ Applicaties worden geconfigureerd in het `apps.json` bestand. Je kunt apps toevo
 }
 ```
 
+### Google OAuth configuratie
+
+1. Ga naar [Google Cloud Console](https://console.cloud.google.com/)
+2. Maak een nieuw project of selecteer een bestaand project
+3. Ga naar "APIs & Services" > "Credentials"
+4. Klik op "Create Credentials" > "OAuth client ID"
+5. Selecteer "Web application" als applicatietype
+6. Voeg de geautoriseerde redirect URIs toe:
+   - Voor lokale ontwikkeling: `http://localhost:5000/login/google/callback`
+   - Voor productie: `https://jouw-domein.com/login/google/callback`
+7. Kopieer de Client ID en Client Secret naar je `.env` bestand
+
+### HTTPS vereisten en ontwikkelomgeving
+
+OAuth 2.0 vereist standaard HTTPS voor veilige communicatie. In de code wordt dit automatisch afgehandeld:
+
+- **Ontwikkelomgeving**: Als `FLASK_ENV=development` is ingesteld, wordt HTTPS verificatie automatisch uitgeschakeld via de `OAUTHLIB_INSECURE_TRANSPORT=1` omgevingsvariabele zodat je lokaal kunt ontwikkelen zonder HTTPS.
+- **Productieomgeving**: In productie moet je HTTPS gebruiken. Zorg ervoor dat je server correct is geconfigureerd met SSL/TLS certificaten.
+
+> **Let op**: In productie moet `FLASK_ENV` worden ingesteld op `production` of worden weggelaten om de HTTPS-vereisten te behouden!
+
 ### Omgevingsvariabelen
 
 | Variabele | Beschrijving | Voorbeeld |
@@ -140,6 +162,7 @@ Applicaties worden geconfigureerd in het `apps.json` bestand. Je kunt apps toevo
 | GOOGLE_CLIENT_ID | Google OAuth client ID | `123456789.apps.googleusercontent.com` |
 | GOOGLE_CLIENT_SECRET | Google OAuth client secret | `ABCdef123456` |
 | ADMIN_EMAILS | Komma-gescheiden lijst van admin emails | `admin@lynxx.com,manager@lynxx.com` |
+| FLASK_ENV | Omgeving (development/production) | `development` |
 | LOG_LEVEL | Logging niveau | `INFO` |
 
 ## 🏗️ Projectstructuur
@@ -164,6 +187,7 @@ LynxxBusinessPortal/
     ├── base.html           # Basis template
     ├── index.html          # Homepage met app-tegels
     ├── login.html          # Login pagina
+    ├── admin.html          # Admin dashboard
     └── error.html          # Error pagina
 ```
 
@@ -195,7 +219,6 @@ Handmatige tests:
 
 ## 📋 Toekomstige uitbreidingen
 
-- Admin interface voor app-beheer
 - Personalisatie-opties voor gebruikers
 - Zoekfunctionaliteit voor apps
 - Gebruiksstatistieken dashboard
