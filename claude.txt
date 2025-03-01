@@ -27,11 +27,10 @@ De applicatie volgt een modulaire structuur met de volgende hoofdcomponenten:
 - **Afhankelijkheid**: Afhankelijk van python-dotenv
 
 ### auth.py
-- **Status**: Implementatie bevat een bug met redirect URI's
+- **Status**: Volledig geïmplementeerd en gefixeerd
 - **Bestandsnaam**: auth.py
-- **Functionaliteit**: Robuust authenticatiesysteem met Google OAuth integratie, domeinvalidatie, foutafhandeling, admin rechten controle, en decorators voor beveiligde routes
+- **Functionaliteit**: Robuust authenticatiesysteem met Google OAuth integratie, domeinvalidatie, foutafhandeling, admin rechten controle, en decorators voor beveiligde routes. Redirect URI generatie is verbeterd met url_for() en _external=True parameter. Configuratie voor HTTP tijdens ontwikkeling is toegevoegd.
 - **Afhankelijkheid**: Afhankelijk van config.py
-- **Issue**: Bevat een redirect_uri_mismatch probleem waar de callback URL inconsistent wordt gegenereerd; moet worden geüpdatet om url_for() met _external=True parameter te gebruiken
 
 ### static/css/style.css
 - **Status**: Volledig geïmplementeerd
@@ -94,15 +93,15 @@ De applicatie volgt een modulaire structuur met de volgende hoofdcomponenten:
 - **Afhankelijkheid**: Geen afhankelijkheden
 
 ### .env.example
-- **Status**: Volledig geïmplementeerd
+- **Status**: Volledig geïmplementeerd en uitgebreid
 - **Bestandsnaam**: .env.example
-- **Functionaliteit**: Voorbeeldbestand voor omgevingsvariabelen configuratie, inclusief admin e-mailadressen
+- **Functionaliteit**: Voorbeeldbestand voor omgevingsvariabelen configuratie, inclusief admin e-mailadressen, met verbeterde instructies voor OAuth configuratie
 - **Afhankelijkheid**: Geen afhankelijkheden
 
 ### README.md
-- **Status**: Volledig geïmplementeerd en uitgebreid met venv-instructies
+- **Status**: Volledig geïmplementeerd en uitgebreid
 - **Bestandsnaam**: README.md
-- **Functionaliteit**: Uitgebreide documentatie over de applicatie, installatie, configuratie en gebruik, inclusief instructies voor het opzetten en beheren van virtuele omgevingen
+- **Functionaliteit**: Uitgebreide documentatie over de applicatie, installatie, configuratie en gebruik, inclusief instructies voor het opzetten en beheren van virtuele omgevingen, OAuth configuratie en HTTPS vereisten
 - **Afhankelijkheid**: Geen afhankelijkheden
 
 ### requirements.txt
