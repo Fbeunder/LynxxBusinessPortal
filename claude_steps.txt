@@ -13,7 +13,7 @@
    - Login- en sessiemanagement
    - Gebruikersinformatie ophalen en weergeven
 
-3. **App-tegels functionaliteit dynamisch maken**
+3. **App-tegels functionaliteit dynamisch maken** ✅
    - Dynamisch laden van apps uit configuratie
    - Apps.json gebruiken om tegels te genereren 
    - Correcte doorklik-functionaliteit naar de apps
@@ -58,4 +58,4 @@
    - Caching van app-gegevens
    - Lazy loading van 3D-elementen
 
-De eerste twee must-have stappen zijn afgerond. De volgende stap is het implementeren van de dynamische app-tegels functionaliteit waarbij apps worden geladen uit het apps.json configuratiebestand. Alle huidige stappen zijn noodzakelijk voor de basiswerking van de applicatie.
+De eerste drie must-have stappen zijn afgerond. De volgende stap is het implementeren van het 3D Lynxx logo met volledige functionaliteit. Alle huidige must-have stappen zijn noodzakelijk voor de basiswerking van de applicatie.
