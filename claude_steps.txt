@@ -39,34 +39,44 @@
 
 ## Nice-to-have stappen
 
-1. **Admin interface voor app-beheer** 🔄
+1. **Admin interface voor app-beheer** ✅
    - Mogelijkheid om apps toe te voegen/wijzigen/verwijderen
    - Toegangsbeheer voor admin-functionaliteit
+   - Admin API endpoints
+   - Drag-and-drop herordening van apps
 
-2. **Personalisatie-opties**
+2. **Personalisatie-opties** 🔲
    - Mogelijkheid voor gebruikers om favoriete apps te markeren
    - Drag-and-drop functionaliteit voor het ordenen van apps
+   - Gebruikersinstellingen opslaan in database
 
-3. **Uitgebreide app-metadata**
-   - Iconen voor apps
-   - Beschrijvingen en tags voor betere vindbaarheid
+3. **Uitgebreide app-metadata** 🔲
+   - Uitgebreidere icoon-ondersteuning
+   - Categorieën voor apps
+   - Tags voor betere vindbaarheid
 
-4. **Zoekfunctie**
+4. **Zoekfunctie** 🔲
    - Zoeken door beschikbare apps
    - Filtering op categorieën of tags
+   - Auto-suggesties tijdens zoeken
 
-5. **Gebruiksstatistieken**
+5. **Gebruiksstatistieken** 🔲
    - Bijhouden welke apps het meest worden gebruikt
    - Dashboard voor gebruiksanalyse
+   - Rapportage voor beheerders
 
-6. **Responsive design verbeteringen**
-   - Optimalisatie voor mobiele apparaten
+6. **Responsive design verbeteringen** 🔲
+   - Verdere optimalisatie voor mobiele apparaten
    - Aangepaste layouts voor verschillende schermformaten
+   - Touch-vriendelijke interfaces
 
-7. **Performance optimalisatie**
+7. **Performance optimalisatie** 🔲
    - Caching van app-gegevens
    - Lazy loading van 3D-elementen
+   - Minificatie van CSS/JS
 
-Alle must-have stappen zijn nu afgerond. De volgende stappen zijn nice-to-have uitbreidingen die de functionaliteit en gebruikerservaring kunnen verbeteren, maar niet noodzakelijk zijn voor de basiswerking van de applicatie. De applicatie heeft nu alle essentiële functionaliteit voor productief gebruik.
+Alle must-have stappen zijn afgerond en nu is ook de eerste nice-to-have feature geïmplementeerd: de admin interface voor app-beheer. De applicatie heeft nu alle essentiële functionaliteit voor productief gebruik, plus een handige beheerinterface om de portal te onderhouden.
 
-De huidige prioriteit is het mergen van pull request #10 voor het configuratiesysteem. Daarna kan begonnen worden met de implementatie van de admin interface voor app-beheer (issue #12), wat de eerste nice-to-have feature is om te implementeren.
+De huidige prioriteit is het mergen van pull request #15 voor de admin interface. Hoewel er nog verschillende nice-to-have features op de lijst staan, zijn deze allemaal optionele verbeteringen die de gebruikerservaring kunnen verbeteren, maar niet noodzakelijk zijn voor de basiswerking van de applicatie.
+
+Alle vervolgstappen zijn nu verbeteringen die niet noodzakelijk zijn voor de basiswerking van de applicatie. De portal is volledig functioneel met alle essentiële features geïmplementeerd.
