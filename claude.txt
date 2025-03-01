@@ -14,13 +14,13 @@ De applicatie volgt een modulaire structuur met de volgende hoofdcomponenten:
 ## 3. Modules
 
 ### app.py
-- **Status**: Niet gestart
+- **Status**: Basisimplementatie
 - **Bestandsnaam**: app.py
 - **Functionaliteit**: Hoofdapplicatiebestand met Flask-serverimplementatie
 - **Afhankelijkheid**: Afhankelijk van alle andere modules
 
 ### config.py
-- **Status**: Niet gestart
+- **Status**: Basisimplementatie
 - **Bestandsnaam**: config.py
 - **Functionaliteit**: Configuratiebeheersysteem, laadt en beheert applicatie-instellingen
 - **Afhankelijkheid**: Geen afhankelijkheden
@@ -32,43 +32,49 @@ De applicatie volgt een modulaire structuur met de volgende hoofdcomponenten:
 - **Afhankelijkheid**: Afhankelijk van config.py
 
 ### static/css/style.css
-- **Status**: Niet gestart
+- **Status**: Basisimplementatie
 - **Bestandsnaam**: static/css/style.css
 - **Functionaliteit**: CSS-styling voor de webinterface
 - **Afhankelijkheid**: Geen afhankelijkheden
 
 ### static/js/main.js
-- **Status**: Niet gestart
+- **Status**: Basisimplementatie
 - **Bestandsnaam**: static/js/main.js
 - **Functionaliteit**: Algemene JavaScript-functionaliteit voor de webinterface
 - **Afhankelijkheid**: Geen afhankelijkheden
 
 ### static/js/logo3d.js
-- **Status**: Niet gestart
+- **Status**: Basisimplementatie
 - **Bestandsnaam**: static/js/logo3d.js
 - **Functionaliteit**: Three.js implementatie voor het 3D-roterende Lynxx-logo
 - **Afhankelijkheid**: Afhankelijk van Three.js bibliotheek
 
 ### templates/base.html
-- **Status**: Niet gestart
+- **Status**: Basisimplementatie
 - **Bestandsnaam**: templates/base.html
 - **Functionaliteit**: Basis HTML-sjabloon voor alle pagina's
 - **Afhankelijkheid**: Geen afhankelijkheden
 
 ### templates/index.html
-- **Status**: Niet gestart
+- **Status**: Basisimplementatie
 - **Bestandsnaam**: templates/index.html
 - **Functionaliteit**: Hoofdpagina met app-tegels
 - **Afhankelijkheid**: Afhankelijk van base.html
 
 ### templates/login.html
-- **Status**: Niet gestart
+- **Status**: Basisimplementatie
 - **Bestandsnaam**: templates/login.html
 - **Functionaliteit**: Inlogpagina
 - **Afhankelijkheid**: Afhankelijk van base.html
 
+### templates/error.html
+- **Status**: Basisimplementatie
+- **Bestandsnaam**: templates/error.html
+- **Functionaliteit**: Foutpagina's (404, 500, etc.)
+- **Afhankelijkheid**: Afhankelijk van base.html
+
 ### apps.json
-- **Status**: Niet gestart
+- **Status**: Basisimplementatie
 - **Bestandsnaam**: apps.json
 - **Functionaliteit**: JSON-configuratiebestand voor app-definities (naam, URL, beschrijving, icon)
 - **Afhankelijkheid**: Geen afhankelijkheden
