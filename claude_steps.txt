@@ -42,6 +42,10 @@
    - Werkzeug versie gefixeerd op 2.2.3 om compatibiliteit met Flask 2.2.3 te garanderen
    - Opgelost importfout met url_quote functie
 
+8. **Login bug oplossen** ✅
+   - Redirect URI mismatch fout opgelost
+   - Verbeterde documentatie voor Google OAuth configuratie toegevoegd
+
 ## Nice-to-have stappen
 
 1. **Admin interface voor app-beheer** ✅
