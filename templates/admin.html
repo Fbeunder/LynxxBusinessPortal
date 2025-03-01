@@ -1,0 +1,539 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard - Lynxx Business Portal{% endblock %}
+
+{% block extra_head %}
+<style>
+    .admin-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    
+    .admin-section {
+        margin-bottom: 40px;
+    }
+    
+    .admin-title {
+        margin-bottom: 20px;
+        border-bottom: 2px solid #ddd;
+        padding-bottom: 10px;
+    }
+    
+    .app-form {
+        background-color: #f5f5f5;
+        padding: 20px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+    }
+    
+    .form-group {
+        margin-bottom: 15px;
+    }
+    
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+    
+    .form-control {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+    
+    .btn {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+    
+    .btn-primary {
+        background-color: #007bff;
+        color: white;
+    }
+    
+    .btn-danger {
+        background-color: #dc3545;
+        color: white;
+    }
+    
+    .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+    }
+    
+    .app-list {
+        list-style: none;
+        padding: 0;
+    }
+    
+    .app-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 0;
+        border-bottom: 1px solid #eee;
+    }
+    
+    .app-name {
+        font-weight: bold;
+    }
+    
+    .app-url {
+        color: #666;
+        font-size: 0.9em;
+    }
+    
+    .app-description {
+        margin-top: 5px;
+    }
+    
+    .app-actions {
+        display: flex;
+        gap: 10px;
+    }
+    
+    .drag-handle {
+        cursor: move;
+        margin-right: 10px;
+        color: #999;
+    }
+    
+    .notification {
+        padding: 10px 15px;
+        margin-bottom: 20px;
+        border-radius: 4px;
+    }
+    
+    .notification-success {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+    }
+    
+    .notification-error {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+    }
+    
+    /* Icon picker */
+    .icon-picker {
+        display: grid;
+        grid-template-columns: repeat(8, 1fr);
+        gap: 10px;
+        margin-top: 10px;
+        max-height: 200px;
+        overflow-y: auto;
+        border: 1px solid #ddd;
+        padding: 10px;
+        border-radius: 4px;
+    }
+    
+    .icon-option {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px;
+        border: 1px solid #eee;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    
+    .icon-option:hover, .icon-option.selected {
+        background-color: #f0f0f0;
+        border-color: #007bff;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="admin-container">
+    <div class="admin-section">
+        <h1 class="admin-title">Admin Dashboard</h1>
+        <p>Welkom bij het admin dashboard. Hier kun je apps beheren in de Lynxx Business Portal.</p>
+    </div>
+    
+    <div id="notifications"></div>
+    
+    <div class="admin-section">
+        <h2>App toevoegen</h2>
+        <div class="app-form">
+            <form id="add-app-form">
+                <div class="form-group">
+                    <label for="app-name">Naam</label>
+                    <input type="text" id="app-name" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="app-url">URL</label>
+                    <input type="url" id="app-url" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="app-description">Beschrijving</label>
+                    <input type="text" id="app-description" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="app-icon">Icoon</label>
+                    <input type="text" id="app-icon" class="form-control" value="link">
+                    <div class="icon-picker" id="icon-picker">
+                        <!-- JavaScript vult dit aan met icon opties -->
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">App toevoegen</button>
+            </form>
+        </div>
+    </div>
+    
+    <div class="admin-section">
+        <h2>Apps beheren</h2>
+        <p>Sleep de apps om de volgorde aan te passen. Klik op bewerken of verwijderen om een app te wijzigen of te verwijderen.</p>
+        <ul id="app-list" class="app-list">
+            <!-- JavaScript vult deze lijst aan -->
+        </ul>
+    </div>
+    
+    <!-- Modals -->
+    <div id="edit-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 1000;">
+        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; padding: 20px; border-radius: 5px; min-width: 500px;">
+            <h2>App bewerken</h2>
+            <form id="edit-app-form">
+                <input type="hidden" id="edit-app-id">
+                <div class="form-group">
+                    <label for="edit-app-name">Naam</label>
+                    <input type="text" id="edit-app-name" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-app-url">URL</label>
+                    <input type="url" id="edit-app-url" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-app-description">Beschrijving</label>
+                    <input type="text" id="edit-app-description" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-app-icon">Icoon</label>
+                    <input type="text" id="edit-app-icon" class="form-control">
+                    <div class="icon-picker" id="edit-icon-picker">
+                        <!-- JavaScript vult dit aan met icon opties -->
+                    </div>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                    <button type="button" class="btn btn-secondary" onclick="closeEditModal()">Annuleren</button>
+                    <button type="submit" class="btn btn-primary">Wijzigingen opslaan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.14.0/Sortable.min.js"></script>
+<script>
+    // Beschikbare iconen
+    const availableIcons = [
+        'link', 'mail', 'clock', 'book', 'calendar', 'chart', 'cloud', 'code',
+        'cog', 'database', 'desktop', 'download', 'edit', 'eye', 'file',
+        'folder', 'globe', 'heart', 'home', 'image', 'info', 'key', 'lock',
+        'map', 'message', 'mobile', 'money', 'pen', 'phone', 'print', 'search',
+        'server', 'settings', 'share', 'shield', 'shopping-cart', 'star', 'tag',
+        'trash', 'upload', 'user', 'users', 'video', 'wrench'
+    ];
+    
+    // Vul icon pickers
+    function populateIconPicker() {
+        const picker = document.getElementById('icon-picker');
+        const editPicker = document.getElementById('edit-icon-picker');
+        
+        let pickerHtml = '';
+        
+        availableIcons.forEach(icon => {
+            pickerHtml += `<div class="icon-option" data-icon="${icon}" title="${icon}">${icon}</div>`;
+        });
+        
+        picker.innerHTML = pickerHtml;
+        editPicker.innerHTML = pickerHtml;
+        
+        // Voeg event listeners toe
+        document.querySelectorAll('.icon-option').forEach(option => {
+            option.addEventListener('click', function() {
+                const icon = this.getAttribute('data-icon');
+                const isEditPicker = this.closest('#edit-icon-picker');
+                
+                if (isEditPicker) {
+                    document.getElementById('edit-app-icon').value = icon;
+                    document.querySelectorAll('#edit-icon-picker .icon-option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                } else {
+                    document.getElementById('app-icon').value = icon;
+                    document.querySelectorAll('#icon-picker .icon-option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                }
+                
+                this.classList.add('selected');
+            });
+        });
+    }
+    
+    // Functie om meldingen weer te geven
+    function showNotification(message, type = 'success') {
+        const notifications = document.getElementById('notifications');
+        const notification = document.createElement('div');
+        notification.className = `notification notification-${type}`;
+        notification.textContent = message;
+        
+        notifications.appendChild(notification);
+        
+        // Verwijder notificatie na 3 seconden
+        setTimeout(() => {
+            notification.remove();
+        }, 3000);
+    }
+    
+    // Laad apps
+    async function loadApps() {
+        try {
+            const response = await fetch('/api/apps');
+            const data = await response.json();
+            
+            if (data.status === 'success') {
+                renderApps(data.apps);
+            } else {
+                showNotification('Kon apps niet laden: ' + data.message, 'error');
+            }
+        } catch (error) {
+            showNotification('Er is een fout opgetreden bij het laden van de apps', 'error');
+            console.error('Error loading apps:', error);
+        }
+    }
+    
+    // Render apps
+    function renderApps(apps) {
+        const appList = document.getElementById('app-list');
+        appList.innerHTML = '';
+        
+        apps.forEach((app, index) => {
+            const li = document.createElement('li');
+            li.className = 'app-item';
+            li.setAttribute('data-id', index);
+            
+            li.innerHTML = `
+                <div class="app-info">
+                    <span class="drag-handle">☰</span>
+                    <span class="app-name">${app.name}</span>
+                    <div class="app-url">${app.url}</div>
+                    <div class="app-description">${app.description}</div>
+                </div>
+                <div class="app-actions">
+                    <button class="btn btn-secondary" onclick="editApp(${index})">Bewerken</button>
+                    <button class="btn btn-danger" onclick="deleteApp(${index})">Verwijderen</button>
+                </div>
+            `;
+            
+            appList.appendChild(li);
+        });
+        
+        // Initialiseer drag & drop
+        initSortable();
+    }
+    
+    // Initialiseer sortable
+    function initSortable() {
+        const appList = document.getElementById('app-list');
+        
+        Sortable.create(appList, {
+            handle: '.drag-handle',
+            animation: 150,
+            onEnd: async function(evt) {
+                // Verzamel nieuwe volgorde
+                const items = Array.from(appList.querySelectorAll('.app-item'));
+                const order = items.map(item => parseInt(item.getAttribute('data-id')));
+                
+                // Stuur naar server
+                try {
+                    const response = await fetch('/api/apps/reorder', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ order })
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (data.status === 'success') {
+                        showNotification('Apps zijn opnieuw geordend');
+                        // Ververs de lijst
+                        loadApps();
+                    } else {
+                        showNotification('Kon apps niet opnieuw ordenen: ' + data.message, 'error');
+                    }
+                } catch (error) {
+                    showNotification('Er is een fout opgetreden bij het opnieuw ordenen van de apps', 'error');
+                    console.error('Error reordering apps:', error);
+                }
+            }
+        });
+    }
+    
+    // Voeg app toe
+    async function addApp(event) {
+        event.preventDefault();
+        
+        const name = document.getElementById('app-name').value;
+        const url = document.getElementById('app-url').value;
+        const description = document.getElementById('app-description').value;
+        const icon = document.getElementById('app-icon').value;
+        
+        try {
+            const response = await fetch('/api/apps', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ name, url, description, icon })
+            });
+            
+            const data = await response.json();
+            
+            if (data.status === 'success') {
+                showNotification('App is toegevoegd');
+                document.getElementById('add-app-form').reset();
+                loadApps();
+            } else {
+                showNotification('Kon app niet toevoegen: ' + data.message, 'error');
+            }
+        } catch (error) {
+            showNotification('Er is een fout opgetreden bij het toevoegen van de app', 'error');
+            console.error('Error adding app:', error);
+        }
+    }
+    
+    // Bewerk app
+    function editApp(appId) {
+        // Haal de huidige app data op
+        fetch('/api/apps')
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    const app = data.apps[appId];
+                    
+                    // Vul het formulier
+                    document.getElementById('edit-app-id').value = appId;
+                    document.getElementById('edit-app-name').value = app.name;
+                    document.getElementById('edit-app-url').value = app.url;
+                    document.getElementById('edit-app-description').value = app.description;
+                    document.getElementById('edit-app-icon').value = app.icon || 'link';
+                    
+                    // Selecteer het huidige icoon
+                    document.querySelectorAll('#edit-icon-picker .icon-option').forEach(opt => {
+                        opt.classList.remove('selected');
+                        if (opt.getAttribute('data-icon') === app.icon) {
+                            opt.classList.add('selected');
+                        }
+                    });
+                    
+                    // Toon de modal
+                    document.getElementById('edit-modal').style.display = 'block';
+                } else {
+                    showNotification('Kon app niet laden: ' + data.message, 'error');
+                }
+            })
+            .catch(error => {
+                showNotification('Er is een fout opgetreden bij het laden van de app', 'error');
+                console.error('Error loading app:', error);
+            });
+    }
+    
+    // Sluit bewerk modal
+    function closeEditModal() {
+        document.getElementById('edit-modal').style.display = 'none';
+    }
+    
+    // Update app
+    async function updateApp(event) {
+        event.preventDefault();
+        
+        const appId = document.getElementById('edit-app-id').value;
+        const name = document.getElementById('edit-app-name').value;
+        const url = document.getElementById('edit-app-url').value;
+        const description = document.getElementById('edit-app-description').value;
+        const icon = document.getElementById('edit-app-icon').value;
+        
+        try {
+            const response = await fetch(`/api/apps/${appId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ name, url, description, icon })
+            });
+            
+            const data = await response.json();
+            
+            if (data.status === 'success') {
+                showNotification('App is bijgewerkt');
+                closeEditModal();
+                loadApps();
+            } else {
+                showNotification('Kon app niet bijwerken: ' + data.message, 'error');
+            }
+        } catch (error) {
+            showNotification('Er is een fout opgetreden bij het bijwerken van de app', 'error');
+            console.error('Error updating app:', error);
+        }
+    }
+    
+    // Verwijder app
+    async function deleteApp(appId) {
+        if (!confirm('Weet je zeker dat je deze app wilt verwijderen?')) {
+            return;
+        }
+        
+        try {
+            const response = await fetch(`/api/apps/${appId}`, {
+                method: 'DELETE'
+            });
+            
+            const data = await response.json();
+            
+            if (data.status === 'success') {
+                showNotification('App is verwijderd');
+                loadApps();
+            } else {
+                showNotification('Kon app niet verwijderen: ' + data.message, 'error');
+            }
+        } catch (error) {
+            showNotification('Er is een fout opgetreden bij het verwijderen van de app', 'error');
+            console.error('Error deleting app:', error);
+        }
+    }
+    
+    // Event listeners
+    document.addEventListener('DOMContentLoaded', function() {
+        // Laad apps
+        loadApps();
+        
+        // Vul icon pickers
+        populateIconPicker();
+        
+        // Voeg event listeners toe
+        document.getElementById('add-app-form').addEventListener('submit', addApp);
+        document.getElementById('edit-app-form').addEventListener('submit', updateApp);
+        
+        // Sluit modal met Escape
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeEditModal();
+            }
+        });
+    });
+</script>
+{% endblock %}
