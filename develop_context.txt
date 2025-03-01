@@ -35,5 +35,5 @@ Hanteer de volgeden Werkwijze voor werken met Git en wijzigingen beheren
 4. Wijzigingen opslaan: Sla de wijzigingen lokaal op en voorzie deze van een korte, duidelijke omschrijving.
 5. Wijzigingen delen: Stuur de opgeslagen wijzigingen naar de centrale repository
 6. Controle en goedkeuring: Keur je eigen werk goed
-7. Merge hoofdversie: Voeg de wijzigingen samen met de hoofdversie van de code.
+7. Merge de pull request: Voeg de wijzigingen samen met de hoofdversie van de code.
 8. sluit het pull request
