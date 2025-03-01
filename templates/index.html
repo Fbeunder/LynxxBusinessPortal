@@ -2,10 +2,26 @@
 
 {% block title %}Lynxx Business Portal - Home{% endblock %}
 
+{% block extra_head %}
+{% if personalize %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
+{% endif %}
+{% endblock %}
+
 {% block content %}
-    <div class="apps-grid">
+    {% if personalize %}
+    <div class="personalization-info">
+        <p>
+            <i class="fas fa-info-circle"></i> 
+            Tip: Je kunt apps als favoriet markeren door op de ster te klikken, en de volgorde aanpassen door te slepen.
+        </p>
+    </div>
+    {% endif %}
+    
+    <div class="apps-grid" id="apps-container">
         {% for app in apps %}
-            <div class="app-tile">
+            <div class="app-tile {% if app.is_favorite %}favorite{% endif %}" data-app-id="{{ loop.index0 }}">
                 <a href="{{ app.url }}" target="_blank">
                     <div class="app-icon">
                         <span class="icon">
@@ -61,7 +77,98 @@
                         <p>{{ app.description }}</p>
                     </div>
                 </a>
+                {% if personalize %}
+                <div class="app-actions">
+                    <button class="favorite-btn" data-app-id="{{ loop.index0 }}" title="Als favoriet markeren">
+                        <i class="fas fa-star {% if app.is_favorite %}favorite-star{% endif %}"></i>
+                    </button>
+                    <div class="drag-handle" title="Verplaatsen">
+                        <i class="fas fa-grip-lines"></i>
+                    </div>
+                </div>
+                {% endif %}
             </div>
         {% endfor %}
     </div>
+{% endblock %}
+
+{% block extra_scripts %}
+{% if personalize %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialiseer drag-and-drop functionaliteit
+    const appsContainer = document.getElementById('apps-container');
+    
+    if (appsContainer) {
+        const sortable = new Sortable(appsContainer, {
+            animation: 150,
+            handle: '.drag-handle',
+            onEnd: function(evt) {
+                // Verzamel nieuwe volgorde
+                const appTiles = appsContainer.querySelectorAll('.app-tile');
+                const newOrder = Array.from(appTiles).map(tile => parseInt(tile.dataset.appId));
+                
+                // Stuur nieuwe volgorde naar server
+                fetch('/api/user/order', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ order: newOrder }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        console.log('Volgorde succesvol bijgewerkt');
+                    } else {
+                        console.error('Fout bij het bijwerken van de volgorde:', data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Fout bij het verzenden van de nieuwe volgorde:', error);
+                });
+            }
+        });
+    }
+    
+    // Favoriet toggle functionaliteit
+    const favoriteBtns = document.querySelectorAll('.favorite-btn');
+    
+    favoriteBtns.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const appId = this.dataset.appId;
+            const starIcon = this.querySelector('i');
+            const appTile = document.querySelector(`.app-tile[data-app-id="${appId}"]`);
+            
+            fetch(`/api/user/favorites/${appId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    if (data.is_favorite) {
+                        starIcon.classList.add('favorite-star');
+                        appTile.classList.add('favorite');
+                    } else {
+                        starIcon.classList.remove('favorite-star');
+                        appTile.classList.remove('favorite');
+                    }
+                } else {
+                    console.error('Fout bij het bijwerken van favoriet:', data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Fout bij het verzenden van favoriet:', error);
+            });
+        });
+    });
+});
+</script>
+{% endif %}
 {% endblock %}
