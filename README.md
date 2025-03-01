@@ -24,7 +24,45 @@ De Lynxx Business Portal is een centrale toegangsplaats waar Lynxx medewerkers a
 - Flask
 - Google OAuth client credentials
 
-### Stappen
+### Virtuele omgeving opzetten (aanbevolen)
+
+Het is sterk aanbevolen om een virtuele Python-omgeving te gebruiken voor de installatie en het uitvoeren van de Lynxx Business Portal. Dit voorkomt conflicten met andere Python-projecten en zorgt voor een schone, geïsoleerde omgeving.
+
+#### Voor Windows:
+
+1. Open een Command Prompt of PowerShell venster
+2. Navigeer naar de projectmap:
+   ```
+   cd pad\naar\LynxxBusinessPortal
+   ```
+3. Maak een virtuele omgeving aan:
+   ```
+   python -m venv venv
+   ```
+4. Activeer de virtuele omgeving:
+   ```
+   venv\Scripts\activate
+   ```
+
+#### Voor macOS/Linux:
+
+1. Open een terminal venster
+2. Navigeer naar de projectmap:
+   ```bash
+   cd pad/naar/LynxxBusinessPortal
+   ```
+3. Maak een virtuele omgeving aan:
+   ```bash
+   python3 -m venv venv
+   ```
+4. Activeer de virtuele omgeving:
+   ```bash
+   source venv/bin/activate
+   ```
+
+Je terminal prompt zou nu moeten veranderen, wat aangeeft dat je virtuele omgeving actief is (meestal zie je `(venv)` aan het begin van de prompt).
+
+### Installatiestappen
 
 1. Clone de repository:
    ```bash
@@ -32,17 +70,19 @@ De Lynxx Business Portal is een centrale toegangsplaats waar Lynxx medewerkers a
    cd LynxxBusinessPortal
    ```
 
-2. Installeer de benodigde packages:
+2. Maak en activeer een virtuele omgeving (zie bovenstaande instructies)
+
+3. Installeer de benodigde packages:
    ```bash
    pip install -r requirements.txt
    ```
 
-3. Maak een `.env` bestand aan gebaseerd op `.env.example`:
+4. Maak een `.env` bestand aan gebaseerd op `.env.example`:
    ```bash
    cp .env.example .env
    ```
 
-4. Vul de benodigde omgevingsvariabelen in, inclusief Google OAuth client gegevens:
+5. Vul de benodigde omgevingsvariabelen in, inclusief Google OAuth client gegevens:
    ```
    FLASK_SECRET_KEY=jouw_geheime_sleutel
    GOOGLE_CLIENT_ID=jouw_google_client_id
@@ -50,12 +90,28 @@ De Lynxx Business Portal is een centrale toegangsplaats waar Lynxx medewerkers a
    ADMIN_EMAILS=admin1@lynxx.com,admin2@lynxx.com
    ```
 
-5. Start de applicatie:
+6. Start de applicatie:
    ```bash
    python app.py
    ```
 
 De portal is nu bereikbaar op http://localhost:5000
+
+### Virtuele omgeving beheren
+
+- Om de virtuele omgeving te deactiveren:
+  ```
+  deactivate
+  ```
+
+- Om de virtuele omgeving later opnieuw te activeren, voer je opnieuw het activatiecommando uit:
+  - Windows: `venv\Scripts\activate`
+  - macOS/Linux: `source venv/bin/activate`
+
+- Om de afhankelijkheden in je virtuele omgeving bij te werken:
+  ```
+  pip install -r requirements.txt
+  ```
 
 ## ⚙️ Configuratie
 
