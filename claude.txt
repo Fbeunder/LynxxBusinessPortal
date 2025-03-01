@@ -1,7 +1,7 @@
 # Lynxx Business Portal
 
 ## 1. Projectoverzicht
-De Lynxx Business Portal is een webomgeving waar Lynxx medewerkers de belangrijkste bedrijfsapps van Lynxx kunnen vinden. De portal biedt een centrale toegangsplaats tot bedrijfsapplicaties, authenticeert gebruikers via Google accounts binnen het lynxx.com domein, en presenteert de beschikbare apps als tegels in een overzichtelijke interface. De header van de portal bevat een 3D-roterende Lynxx logo om visuele interesse te wekken.
+De Lynxx Business Portal is een webomgeving waar Lynxx medewerkers de belangrijkste bedrijfsapps van Lynxx kunnen vinden. De portal biedt een centrale toegangsplaats tot bedrijfsapplicaties, authenticeert gebruikers via Google accounts binnen het lynxx.com domein, en presenteert de beschikbare apps als tegels in een overzichtelijke interface. De header van de portal bevat een 3D-roterende Lynxx logo om visuele interesse te wekken. Daarnaast biedt de portal een admin interface waar beheerders apps kunnen toevoegen, bewerken, verwijderen en ordenen.
 
 ## 2. Architectuur
 De applicatie volgt een modulaire structuur met de volgende hoofdcomponenten:
@@ -10,31 +10,32 @@ De applicatie volgt een modulaire structuur met de volgende hoofdcomponenten:
 - **Backend**: Python-gebaseerde server met authenticatie, configuratie en API-endpoints
 - **Configuratie**: Configuratiebestanden voor app definities en instellingen
 - **Authenticatie**: Module voor het verifiëren van gebruikers via Google OAuth
+- **Admin Interface**: Module voor het beheren van apps door administrators
 
 ## 3. Modules
 
 ### app.py
 - **Status**: Volledig geïmplementeerd
 - **Bestandsnaam**: app.py
-- **Functionaliteit**: Hoofdapplicatiebestand met Flask-serverimplementatie, route-beheer, verbeterde logging, foutafhandeling en configuratie validatie
+- **Functionaliteit**: Hoofdapplicatiebestand met Flask-serverimplementatie, route-beheer, verbeterde logging, foutafhandeling, configuratie validatie en API endpoints voor app-beheer
 - **Afhankelijkheid**: Afhankelijk van alle andere modules
 
 ### config.py
 - **Status**: Volledig geïmplementeerd
 - **Bestandsnaam**: config.py
-- **Functionaliteit**: Geavanceerd configuratiebeheersysteem met ondersteuning voor omgevingsvariabelen, robuuste validatie, admin instellingen en failsafe defaults
+- **Functionaliteit**: Geavanceerd configuratiebeheersysteem met ondersteuning voor omgevingsvariabelen, robuuste validatie, admin instellingen en failsafe defaults, inclusief methodes voor het opslaan en laden van app-configuraties
 - **Afhankelijkheid**: Afhankelijk van python-dotenv
 
 ### auth.py
 - **Status**: Volledig geïmplementeerd
 - **Bestandsnaam**: auth.py
-- **Functionaliteit**: Robuust authenticatiesysteem met Google OAuth integratie, domeinvalidatie, foutafhandeling en admin rechten controle
+- **Functionaliteit**: Robuust authenticatiesysteem met Google OAuth integratie, domeinvalidatie, foutafhandeling, admin rechten controle, en decorators voor beveiligde routes
 - **Afhankelijkheid**: Afhankelijk van config.py
 
 ### static/css/style.css
 - **Status**: Volledig geïmplementeerd
 - **Bestandsnaam**: static/css/style.css
-- **Functionaliteit**: CSS-styling voor de webinterface, inclusief 3D logo containers en authenticatie-elementen
+- **Functionaliteit**: CSS-styling voor de webinterface, inclusief 3D logo containers, authenticatie-elementen en de admin interface
 - **Afhankelijkheid**: Geen afhankelijkheden
 
 ### static/js/main.js
@@ -58,7 +59,7 @@ De applicatie volgt een modulaire structuur met de volgende hoofdcomponenten:
 ### templates/base.html
 - **Status**: Volledig geïmplementeerd
 - **Bestandsnaam**: templates/base.html
-- **Functionaliteit**: Basis HTML-sjabloon voor alle pagina's, inclusief gebruikersinfo-weergave en 3D logo container
+- **Functionaliteit**: Basis HTML-sjabloon voor alle pagina's, inclusief gebruikersinfo-weergave, admin link en 3D logo container
 - **Afhankelijkheid**: Geen afhankelijkheden
 
 ### templates/index.html
@@ -73,10 +74,16 @@ De applicatie volgt een modulaire structuur met de volgende hoofdcomponenten:
 - **Functionaliteit**: Inlogpagina met Google OAuth integratie
 - **Afhankelijkheid**: Afhankelijk van base.html
 
+### templates/admin.html
+- **Status**: Volledig geïmplementeerd
+- **Bestandsnaam**: templates/admin.html
+- **Functionaliteit**: Admin interface voor het beheren van apps met CRUD-operaties en drag-and-drop functionaliteit
+- **Afhankelijkheid**: Afhankelijk van base.html en Sortable.js bibliotheek
+
 ### templates/error.html
 - **Status**: Volledig geïmplementeerd
 - **Bestandsnaam**: templates/error.html
-- **Functionaliteit**: Verbeterde foutpagina's met ondersteuning voor verschillende foutcodes en informatieve meldingen
+- **Functionaliteit**: Verbeterde foutpagina's met ondersteuning voor verschillende foutcodes (403, 404, 500) en informatieve meldingen
 - **Afhankelijkheid**: Afhankelijk van base.html
 
 ### apps.json
@@ -88,7 +95,7 @@ De applicatie volgt een modulaire structuur met de volgende hoofdcomponenten:
 ### .env.example
 - **Status**: Volledig geïmplementeerd
 - **Bestandsnaam**: .env.example
-- **Functionaliteit**: Voorbeeldbestand voor omgevingsvariabelen configuratie
+- **Functionaliteit**: Voorbeeldbestand voor omgevingsvariabelen configuratie, inclusief admin e-mailadressen
 - **Afhankelijkheid**: Geen afhankelijkheden
 
 ### README.md
