@@ -11,6 +11,7 @@ Het laadt instellingen uit omgevingsvariabelen en uit een apps.json bestand.
 import os
 import json
 from pathlib import Path
+import logging
 
 class Config:
     """Configuratieklasse voor de applicatie"""
@@ -30,6 +31,16 @@ class Config:
     
     # Domein restrictie voor inloggen
     ALLOWED_DOMAIN = "lynxx.com"
+    
+    # Admin instellingen
+    ADMIN_EMAILS = []
+    if os.environ.get('ADMIN_EMAILS'):
+        ADMIN_EMAILS = [email.strip() for email in os.environ.get('ADMIN_EMAILS').split(',')]
+    elif os.environ.get('ADMIN_EMAIL'):  # Backwards compatibility
+        ADMIN_EMAILS = [os.environ.get('ADMIN_EMAIL').strip()]
+    # Voeg een standaard admin toe voor ontwikkeling
+    if DEBUG and not ADMIN_EMAILS:
+        ADMIN_EMAILS = ['admin@lynxx.com']
     
     @classmethod
     def load_apps(cls):
@@ -68,5 +79,38 @@ class Config:
                     ]
                 }
         except Exception as e:
-            print(f"Error loading apps configuration: {e}")
+            logging.error(f"Error loading apps configuration: {e}")
             return {"apps": []}
+    
+    @classmethod
+    def save_apps(cls, apps_data):
+        """
+        Slaat de app configuratie op in het apps.json bestand.
+        
+        Args:
+            apps_data (dict): Een dictionary met app configuraties.
+            
+        Returns:
+            bool: True als het opslaan is gelukt, anders False.
+        """
+        try:
+            # Valideer de data structuur
+            if not isinstance(apps_data, dict) or "apps" not in apps_data:
+                apps_data = {"apps": apps_data} if isinstance(apps_data, list) else {"apps": []}
+            
+            # Zorg ervoor dat elke app een naam, url, beschrijving en icon heeft
+            for app in apps_data["apps"]:
+                if not all(key in app for key in ["name", "url", "description"]):
+                    return False
+                # Voeg een standaard icon toe indien niet aanwezig
+                if "icon" not in app:
+                    app["icon"] = "link"
+            
+            # Schrijf de configuratie naar het bestand
+            with open(cls.APPS_CONFIG_FILE, 'w') as f:
+                json.dump(apps_data, f, indent=4)
+            
+            return True
+        except Exception as e:
+            logging.error(f"Error saving apps configuration: {e}")
+            return False
