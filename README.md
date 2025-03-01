@@ -154,6 +154,23 @@ OAuth 2.0 vereist standaard HTTPS voor veilige communicatie. In de code wordt di
 
 > **Let op**: In productie moet `FLASK_ENV` worden ingesteld op `production` of worden weggelaten om de HTTPS-vereisten te behouden!
 
+#### Troubleshooting OAuth problemen
+
+Als je de foutmelding `InsecureTransportError` tegenkomt, kan dit betekenen dat:
+
+1. `FLASK_ENV` niet correct is ingesteld op `development` in je `.env` bestand
+2. De instelling niet correct wordt geladen
+
+Je kunt dit op meerdere manieren oplossen:
+
+- Controleer of je `.env` bestand correct is en `FLASK_ENV=development` bevat
+- Herstart de Flask applicatie nadat je wijzigingen hebt aangebracht in het `.env` bestand
+- Stel de omgevingsvariabele handmatig in voordat je de app start:
+  - Windows: `set OAUTHLIB_INSECURE_TRANSPORT=1`
+  - macOS/Linux: `export OAUTHLIB_INSECURE_TRANSPORT=1`
+
+De applicatie zal automatisch detecteren of het in een ontwikkelomgeving draait op basis van zowel de `FLASK_ENV` als de `Config.DEBUG` instelling. Als een van beide aangeeft dat het een ontwikkelomgeving is, wordt `OAUTHLIB_INSECURE_TRANSPORT=1` ingesteld.
+
 ### Omgevingsvariabelen
 
 | Variabele | Beschrijving | Voorbeeld |
