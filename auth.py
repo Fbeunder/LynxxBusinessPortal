@@ -175,6 +175,48 @@ def require_login(f):
     return decorated_function
 
 
+def is_admin(email=None):
+    """
+    Controleert of een gebruiker admin-rechten heeft.
+    
+    Args:
+        email (str, optional): Het e-mailadres om te controleren. Als None, wordt de ingelogde gebruiker gecontroleerd.
+        
+    Returns:
+        bool: True als de gebruiker admin-rechten heeft, anders False.
+    """
+    if email is None:
+        user = get_user_info()
+        if not user or 'email' not in user:
+            return False
+        email = user['email']
+    
+    admin_emails = Config.ADMIN_EMAILS
+    return email in admin_emails
+
+
+def require_admin(f):
+    """
+    Decorator voor routes die admin-rechten vereisen.
+    Als de gebruiker geen admin is, wordt 403 Forbidden getoond.
+    
+    Args:
+        f: De functie die gedecoreerd wordt.
+        
+    Returns:
+        function: De gedecoreerde functie.
+    """
+    @functools.wraps(f)
+    @require_login
+    def decorated_function(*args, **kwargs):
+        user = get_user_info()
+        if not user or not is_admin(user.get('email')):
+            flash("Je hebt geen toegang tot deze pagina.", "error")
+            return abort(403)
+        return f(*args, **kwargs)
+    return decorated_function
+
+
 def logout():
     """
     Logt de gebruiker uit door de sessie te wissen.
