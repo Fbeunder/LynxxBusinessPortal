@@ -156,6 +156,22 @@ def get_user_info():
     return session.get("user")
 
 
+def is_admin():
+    """
+    Controleert of de ingelogde gebruiker admin-rechten heeft.
+    
+    Returns:
+        bool: True als de gebruiker admin-rechten heeft, anders False.
+    """
+    user = get_user_info()
+    if not user:
+        return False
+    
+    # Controleer of het e-mailadres van de gebruiker in de lijst met admin e-mailadressen staat
+    admin_emails = Config.ADMIN_EMAILS
+    return user.get("email", "").lower() in [email.lower() for email in admin_emails]
+
+
 def require_login(f):
     """
     Decorator voor routes die authenticatie vereisen.
@@ -171,6 +187,26 @@ def require_login(f):
     def decorated_function(*args, **kwargs):
         if not get_user_info():
             return redirect(url_for("login"))
+        return f(*args, **kwargs)
+    return decorated_function
+
+
+def require_admin(f):
+    """
+    Decorator voor routes die admin-rechten vereisen.
+    Als de gebruiker geen admin-rechten heeft, wordt een 403 Forbidden-fout getoond.
+    
+    Args:
+        f: De functie die gedecoreerd wordt.
+        
+    Returns:
+        function: De gedecoreerde functie.
+    """
+    @functools.wraps(f)
+    @require_login
+    def decorated_function(*args, **kwargs):
+        if not is_admin():
+            abort(403)  # Forbidden
         return f(*args, **kwargs)
     return decorated_function
 
