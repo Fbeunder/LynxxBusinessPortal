@@ -53,6 +53,11 @@
    - Toegevoegde troubleshooting sectie in README.md
    - Uitgebreide instructies in .env.example
 
+10. **Fix app-tegels weergave issue** ✅
+    - Templates/index.html aangepast om apps dynamisch uit apps.json te laden
+    - Mapping van icon-namen naar emoji's geïmplementeerd
+    - Consistent design tussen admin interface en hoofdpagina
+
 ## Nice-to-have stappen
 
 1. **Admin interface voor app-beheer** ✅
@@ -86,7 +91,7 @@
    - Caching van app-gegevens
    - Lazy loading van 3D-elementen
 
-Alle must-have stappen zijn nu voltooid, inclusief de bugfixes voor de OAuth-gerelateerde problemen. De applicatie is nu volledig functioneel en geschikt voor productief gebruik.
+Alle must-have stappen zijn nu voltooid, inclusief de bugfixes voor de OAuth-gerelateerde problemen en de weergave van de apps op de hoofdpagina. De applicatie is nu volledig functioneel en geschikt voor productief gebruik.
 
 De overige nice-to-have features kunnen naar wens worden geïmplementeerd om de gebruikerservaring verder te verbeteren, maar zijn niet essentieel voor de basiswerking van de portal.
 
