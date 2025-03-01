@@ -34,7 +34,7 @@ De applicatie volgt een modulaire structuur met de volgende hoofdcomponenten:
 ### static/css/style.css
 - **Status**: Volledig geïmplementeerd
 - **Bestandsnaam**: static/css/style.css
-- **Functionaliteit**: CSS-styling voor de webinterface, inclusief authenticatie-elementen
+- **Functionaliteit**: CSS-styling voor de webinterface, inclusief 3D logo containers en authenticatie-elementen
 - **Afhankelijkheid**: Geen afhankelijkheden
 
 ### static/js/main.js
@@ -44,15 +44,21 @@ De applicatie volgt een modulaire structuur met de volgende hoofdcomponenten:
 - **Afhankelijkheid**: Geen afhankelijkheden
 
 ### static/js/logo3d.js
-- **Status**: Basisimplementatie
+- **Status**: Volledig geïmplementeerd
 - **Bestandsnaam**: static/js/logo3d.js
-- **Functionaliteit**: Three.js implementatie voor het 3D-roterende Lynxx-logo
+- **Functionaliteit**: Three.js implementatie voor het interactieve 3D-roterende Lynxx-logo
+- **Afhankelijkheid**: Afhankelijk van Three.js bibliotheek en lynxx-logo-model.js
+
+### static/js/lynxx-logo-model.js
+- **Status**: Volledig geïmplementeerd
+- **Bestandsnaam**: static/js/lynxx-logo-model.js
+- **Functionaliteit**: Generator voor het 3D Lynxx-logo model met Three.js geometrie
 - **Afhankelijkheid**: Afhankelijk van Three.js bibliotheek
 
 ### templates/base.html
 - **Status**: Volledig geïmplementeerd
 - **Bestandsnaam**: templates/base.html
-- **Functionaliteit**: Basis HTML-sjabloon voor alle pagina's, inclusief gebruikersinfo-weergave
+- **Functionaliteit**: Basis HTML-sjabloon voor alle pagina's, inclusief gebruikersinfo-weergave en 3D logo container
 - **Afhankelijkheid**: Geen afhankelijkheden
 
 ### templates/index.html
