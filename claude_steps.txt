@@ -24,10 +24,12 @@
    - Tekst vervangen door echt 3D-model
    - Interactieve functies toegevoegd (draaien via muis/touch)
 
-5. **Configuratiesysteem uitbreiden**
+5. **Configuratiesysteem uitbreiden** ✅
    - Omgevingsvariabelen gebruiken voor configuratie
    - Admin instellingen toevoegen
    - Betere error handling implementeren
+   - Configuratievalidatie verbeteren
+   - Veilige methodes voor configuratie beheer
 
 ## Nice-to-have stappen
 
@@ -59,4 +61,6 @@
    - Caching van app-gegevens
    - Lazy loading van 3D-elementen
 
-De eerste vier must-have stappen zijn afgerond. De volgende stap is het uitbreiden van het configuratiesysteem met omgevingsvariabelen, admin-instellingen en betere foutafhandeling. Alle huidige must-have stappen zijn noodzakelijk voor de basiswerking van de applicatie.
+Alle must-have stappen zijn nu afgerond. De volgende stappen zijn nice-to-have uitbreidingen die de functionaliteit en gebruikerservaring kunnen verbeteren, maar niet noodzakelijk zijn voor de basiswerking van de applicatie. De applicatie heeft nu alle essentiële functionaliteit voor productief gebruik.
+
+Voor de volledige implementatie is het alleen nog nodig om de pull request #10 voor het configuratiesysteem te laten goedkeuren en samenvoegen met de main branch.
