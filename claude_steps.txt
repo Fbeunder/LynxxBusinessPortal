@@ -1,0 +1,68 @@
+# Ontwikkelstappen voor Lynxx Business Portal
+
+## Must-have stappen
+
+1. **Basis projectstructuur opzetten**
+   - Project directory structuur creëren
+   - Flask applicatie basis opzetten (app.py)
+   - Mappenstructuur voor templates en static bestanden
+
+2. **Configuratiesysteem implementeren**
+   - config.py module implementeren
+   - apps.json configuratiebestand aanmaken met initiële apps
+
+3. **Basistemplate en styling**
+   - Base template opzetten
+   - CSS stijlen definiëren volgens Lynxx huisstijl
+   - Responsieve layout voor de app-tegels
+
+4. **3D Lynxx logo implementeren**
+   - Three.js integreren
+   - 3D model of tekst voor het logo implementeren
+   - Animatie voor rotatie toevoegen
+
+5. **Google OAuth authenticatie implementeren**
+   - OAuth flow implementeren voor Google accounts
+   - Domeinvalidatie voor @lynxx.com
+   - Login- en sessiemanagement
+
+6. **App-tegels functionaliteit**
+   - Dynamisch laden van apps uit configuratie
+   - Tegels weergeven op de hoofdpagina
+   - Doorklik-functionaliteit naar de apps
+
+7. **Gebruikersnaam weergave**
+   - Gebruikersinformatie ophalen uit Google profiel
+   - Voornaam weergeven in welkomstbericht
+
+## Nice-to-have stappen
+
+1. **Admin interface voor app-beheer**
+   - Mogelijkheid om apps toe te voegen/wijzigen/verwijderen
+   - Toegangsbeheer voor admin-functionaliteit
+
+2. **Personalisatie-opties**
+   - Mogelijkheid voor gebruikers om favoriete apps te markeren
+   - Drag-and-drop functionaliteit voor het ordenen van apps
+
+3. **Uitgebreide app-metadata**
+   - Iconen voor apps
+   - Beschrijvingen en tags voor betere vindbaarheid
+
+4. **Zoekfunctie**
+   - Zoeken door beschikbare apps
+   - Filtering op categorieën of tags
+
+5. **Gebruiksstatistieken**
+   - Bijhouden welke apps het meest worden gebruikt
+   - Dashboard voor gebruiksanalyse
+
+6. **Responsive design verbeteringen**
+   - Optimalisatie voor mobiele apparaten
+   - Aangepaste layouts voor verschillende schermformaten
+
+7. **Performance optimalisatie**
+   - Caching van app-gegevens
+   - Lazy loading van 3D-elementen
+
+De huidige focus ligt op het implementeren van de must-have stappen om een werkende basis-versie van de applicatie te ontwikkelen. Na voltooiing van de must-have stappen kunnen de nice-to-have functionaliteiten worden overwogen voor toekomstige iteraties van het project.
