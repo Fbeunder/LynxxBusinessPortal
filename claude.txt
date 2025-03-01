@@ -16,13 +16,13 @@ De applicatie volgt een modulaire structuur met de volgende hoofdcomponenten:
 ### app.py
 - **Status**: Volledig geïmplementeerd
 - **Bestandsnaam**: app.py
-- **Functionaliteit**: Hoofdapplicatiebestand met Flask-serverimplementatie en route-beheer
+- **Functionaliteit**: Hoofdapplicatiebestand met Flask-serverimplementatie, route-beheer en verbeterde logging
 - **Afhankelijkheid**: Afhankelijk van alle andere modules
 
 ### config.py
-- **Status**: Basisimplementatie
+- **Status**: Volledig geïmplementeerd
 - **Bestandsnaam**: config.py
-- **Functionaliteit**: Configuratiebeheersysteem, laadt en beheert applicatie-instellingen
+- **Functionaliteit**: Configuratiebeheersysteem, laadt en beheert applicatie-instellingen, valideert app configuraties
 - **Afhankelijkheid**: Geen afhankelijkheden
 
 ### auth.py
@@ -40,7 +40,7 @@ De applicatie volgt een modulaire structuur met de volgende hoofdcomponenten:
 ### static/js/main.js
 - **Status**: Volledig geïmplementeerd
 - **Bestandsnaam**: static/js/main.js
-- **Functionaliteit**: Algemene JavaScript-functionaliteit voor de webinterface, inclusief authenticatie-gerelateerde functies
+- **Functionaliteit**: JavaScript-functionaliteit voor de webinterface, inclusief app-tegels interactie
 - **Afhankelijkheid**: Geen afhankelijkheden
 
 ### static/js/logo3d.js
@@ -56,9 +56,9 @@ De applicatie volgt een modulaire structuur met de volgende hoofdcomponenten:
 - **Afhankelijkheid**: Geen afhankelijkheden
 
 ### templates/index.html
-- **Status**: Basisimplementatie
+- **Status**: Volledig geïmplementeerd
 - **Bestandsnaam**: templates/index.html
-- **Functionaliteit**: Hoofdpagina met app-tegels
+- **Functionaliteit**: Hoofdpagina met dynamisch gegenereerde app-tegels
 - **Afhankelijkheid**: Afhankelijk van base.html
 
 ### templates/login.html
@@ -68,13 +68,13 @@ De applicatie volgt een modulaire structuur met de volgende hoofdcomponenten:
 - **Afhankelijkheid**: Afhankelijk van base.html
 
 ### templates/error.html
-- **Status**: Basisimplementatie
+- **Status**: Volledig geïmplementeerd
 - **Bestandsnaam**: templates/error.html
-- **Functionaliteit**: Foutpagina's (404, 500, etc.)
+- **Functionaliteit**: Foutpagina's (404, 500, etc.) met verbeterde foutafhandeling
 - **Afhankelijkheid**: Afhankelijk van base.html
 
 ### apps.json
-- **Status**: Basisimplementatie
+- **Status**: Volledig geïmplementeerd
 - **Bestandsnaam**: apps.json
 - **Functionaliteit**: JSON-configuratiebestand voor app-definities (naam, URL, beschrijving, icon)
 - **Afhankelijkheid**: Geen afhankelijkheden
