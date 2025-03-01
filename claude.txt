@@ -98,7 +98,7 @@ De applicatie volgt een modulaire structuur met de volgende hoofdcomponenten:
 - **Afhankelijkheid**: Geen afhankelijkheden
 
 ### requirements.txt
-- **Status**: Volledig geïmplementeerd
+- **Status**: Volledig geïmplementeerd en bijgewerkt
 - **Bestandsnaam**: requirements.txt
-- **Functionaliteit**: Lijst van Python-afhankelijkheden voor de applicatie
+- **Functionaliteit**: Lijst van Python-afhankelijkheden voor de applicatie, inclusief specifieke versies voor Flask en Werkzeug om compatibiliteitsproblemen te voorkomen
 - **Afhankelijkheid**: Geen afhankelijkheden
