@@ -9,7 +9,7 @@
             <p>Log in met je Lynxx Google account om toegang te krijgen tot de Business Portal.</p>
             
             <div class="login-button">
-                <a href="#" class="google-login-btn">
+                <a href="{{ url_for('google_login') }}" class="google-login-btn">
                     <img src="{{ url_for('static', filename='img/google_logo.png') }}" alt="Google logo">
                     Login met Google
                 </a>
