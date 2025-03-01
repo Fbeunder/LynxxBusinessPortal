@@ -42,10 +42,15 @@
    - Werkzeug versie gefixeerd op 2.2.3 om compatibiliteit met Flask 2.2.3 te garanderen
    - Opgelost importfout met url_quote functie
 
-8. **Fix redirect_uri_mismatch probleem** 🔄
-   - Verbeteren van auth.py om consistente URL generatie te gebruiken
+8. **Fix redirect_uri_mismatch probleem** ✅
+   - Verbeterde auth.py om consistente URL generatie te gebruiken
    - Gebruik maken van url_for() met _external=True parameter
    - Bijwerken van documentatie met instructies voor correcte OAuth configuratie
+
+9. **Fix InsecureTransportError probleem** ✅
+   - Automatische configuratie voor HTTP in ontwikkelomgevingen toegevoegd
+   - Configuratie verificatie voor omgevingsvariabelen verbeterd
+   - Documentatie uitgebreid met HTTPS vereisten voor productie
 
 ## Nice-to-have stappen
 
@@ -80,12 +85,12 @@
    - Caching van app-gegevens
    - Lazy loading van 3D-elementen
 
-Alle must-have stappen zijn afgerond en de eerste nice-to-have feature (admin interface voor app-beheer) is ook geïmplementeerd. Er is nog één bugfix nodig voor de redirect_uri_mismatch fout bij het inloggen. Zodra die is opgelost, is de applicatie volledig functioneel en geschikt voor productief gebruik. 
-
-De overige nice-to-have features kunnen later worden toegevoegd om de gebruikerservaring verder te verbeteren, maar zijn niet essentieel voor de basiswerking van de portal.
+Alle must-have stappen zijn nu afgerond, inclusief de bugfixes voor de OAuth authenticatie. De applicatie is nu volledig functioneel en geschikt voor productief gebruik. De overige nice-to-have features kunnen later worden toegevoegd om de gebruikerservaring verder te verbeteren, maar zijn niet essentieel voor de basiswerking van de portal.
 
 De volgende nice-to-have features kunnen nog worden geïmplementeerd in volgorde van prioriteit:
 1. Personalisatie-opties voor gebruikers
 2. Zoekfunctie voor apps
 3. Responsive design verbeteringen
 4. Performance optimalisatie
+
+Alle vervolgstappen zijn nu verbeteringen; de basis functionaliteit van de applicatie is volledig geïmplementeerd en werkt correct.
