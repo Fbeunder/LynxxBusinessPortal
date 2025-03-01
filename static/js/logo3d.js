@@ -2,8 +2,17 @@
  * Lynxx Business Portal - 3D Logo Animation
  * 
  * Dit bestand bevat de Three.js implementatie voor het 3D-roterende Lynxx-logo.
- * Het logo draait langzaam om zijn X en Y as in de header van de pagina.
+ * Het logo draait langzaam om zijn as in de header van de pagina en reageert op gebruikersinteractie.
  */
+
+// Globale variabelen voor de 3D omgeving
+let scene, camera, renderer, logoGroup;
+let isMouseDown = false;
+let rotationSpeed = { x: 0.003, y: 0.005 };
+let autoRotate = true;
+let previousMousePosition = { x: 0, y: 0 };
+let targetRotation = { x: 0, y: 0 };
+let currentRotation = { x: 0, y: 0 };
 
 // Wacht tot DOM volledig is geladen
 document.addEventListener('DOMContentLoaded', function() {
@@ -18,107 +27,253 @@ function initLogo3D() {
     const container = document.getElementById('logo3d');
     if (!container) return;
     
+    // Tooltip voor interactie-hint toevoegen
+    const tooltip = document.createElement('div');
+    tooltip.className = 'logo-tooltip';
+    tooltip.textContent = 'Klik en sleep om te draaien';
+    container.appendChild(tooltip);
+    
     // Scene, camera en renderer instellen
-    const scene = new THREE.Scene();
+    scene = new THREE.Scene();
     
     // Camera instellen met goede verhoudingen voor de container
     const aspectRatio = container.clientWidth / container.clientHeight;
-    const camera = new THREE.PerspectiveCamera(75, aspectRatio, 0.1, 1000);
-    camera.position.z = 5;
+    camera = new THREE.PerspectiveCamera(60, aspectRatio, 0.1, 1000);
+    camera.position.z = 8;
     
-    // Renderer instellen met transparante achtergrond
-    const renderer = new THREE.WebGLRenderer({ 
+    // Renderer instellen met transparante achtergrond en anti-aliasing
+    renderer = new THREE.WebGLRenderer({
         antialias: true,
-        alpha: true 
+        alpha: true
     });
     renderer.setSize(container.clientWidth, container.clientHeight);
     renderer.setClearColor(0x000000, 0); // Transparante achtergrond
+    renderer.setPixelRatio(window.devicePixelRatio); // Voor scherpere weergave op high-DPI schermen
     container.appendChild(renderer.domElement);
     
-    // Belichting instellen
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-    scene.add(ambientLight);
+    // Belichting instellen voor betere 3D weergave
+    setupLighting();
     
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
-    directionalLight.position.set(1, 1, 1);
-    scene.add(directionalLight);
+    // Logo model laden
+    loadLogoModel();
     
-    // 3D tekst voor "LYNXX" maken
-    const fontLoader = new THREE.FontLoader();
-    
-    // We gebruiken een standaard font omdat we in deze setup geen externe fonts kunnen laden
-    // In de uiteindelijke implementatie zou een custom font kunnen worden gebruikt
-    // dat past bij de Lynxx huisstijl
-    createTextMesh("LYNXX", scene);
+    // Event listeners voor interactie toevoegen
+    setupEventListeners(container);
     
     // Animatie-loop starten
-    function animate() {
-        requestAnimationFrame(animate);
-        
-        // Roteer alle meshes in de scene (het logo)
-        scene.traverse(function(object) {
-            if (object.isMesh) {
-                // Langzame rotatie om X en Y as
-                object.rotation.x += 0.005;
-                object.rotation.y += 0.007;
-            }
-        });
-        
-        renderer.render(scene, camera);
-    }
-    
-    // Start de animatie
     animate();
     
     // Window resize handler
-    window.addEventListener('resize', function() {
-        const newWidth = container.clientWidth;
-        const newHeight = container.clientHeight;
-        
-        camera.aspect = newWidth / newHeight;
-        camera.updateProjectionMatrix();
-        
-        renderer.setSize(newWidth, newHeight);
+    window.addEventListener('resize', onWindowResize);
+}
+
+/**
+ * Stelt de belichting in voor de 3D scene
+ */
+function setupLighting() {
+    // Basisverlichting
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+    scene.add(ambientLight);
+    
+    // Hoofdlicht vanaf de voorkant
+    const frontLight = new THREE.DirectionalLight(0xffffff, 0.8);
+    frontLight.position.set(0, 0, 10);
+    scene.add(frontLight);
+    
+    // Licht vanaf de zijkant voor betere diepteweergave
+    const sideLight = new THREE.DirectionalLight(0xffffff, 0.3);
+    sideLight.position.set(10, 5, 0);
+    scene.add(sideLight);
+    
+    // Zacht licht van boven
+    const topLight = new THREE.DirectionalLight(0xffffff, 0.2);
+    topLight.position.set(0, 10, 0);
+    scene.add(topLight);
+}
+
+/**
+ * Laadt het 3D Lynxx logo model
+ */
+function loadLogoModel() {
+    // Gebruik de model generator functie om het logo te creëren
+    logoGroup = createLynxxLogoModel({
+        depth: 0.3,
+        color: '#0099ff',
+        letterSpacing: 0.15,
+        bevel: true,
+        bevelSize: 0.02
+    });
+    
+    // Voeg het logo toe aan de scene
+    scene.add(logoGroup);
+    
+    // Pas de schaal aan zodat het goed in beeld past
+    logoGroup.scale.set(0.8, 0.8, 0.8);
+    
+    // Initiële rotatie om het logo beter zichtbaar te maken
+    logoGroup.rotation.x = 0.2;
+    logoGroup.rotation.y = 0.4;
+    
+    // Sla de initiële rotatie op als target en current
+    targetRotation.x = logoGroup.rotation.x;
+    targetRotation.y = logoGroup.rotation.y;
+    currentRotation.x = logoGroup.rotation.x;
+    currentRotation.y = logoGroup.rotation.y;
+}
+
+/**
+ * Zorgt ervoor dat de 3D weergave aangepast wordt als het venster van grootte verandert
+ */
+function onWindowResize() {
+    const container = document.getElementById('logo3d');
+    if (!container) return;
+    
+    const newWidth = container.clientWidth;
+    const newHeight = container.clientHeight;
+    
+    camera.aspect = newWidth / newHeight;
+    camera.updateProjectionMatrix();
+    
+    renderer.setSize(newWidth, newHeight);
+}
+
+/**
+ * Voegt event listeners toe voor gebruikersinteractie
+ * @param {HTMLElement} container Het DOM element dat de 3D weergave bevat
+ */
+function setupEventListeners(container) {
+    // Muisinteractie voor desktop
+    container.addEventListener('mousedown', onMouseDown);
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', onMouseUp);
+    
+    // Touch interactie voor mobiel
+    container.addEventListener('touchstart', onTouchStart);
+    document.addEventListener('touchmove', onTouchMove);
+    document.addEventListener('touchend', onTouchEnd);
+    
+    // Wissel tussen automatisch draaien en handmatig draaien bij dubbelklik
+    container.addEventListener('dblclick', function() {
+        autoRotate = !autoRotate;
+        const tooltip = container.querySelector('.logo-tooltip');
+        if (tooltip) {
+            tooltip.textContent = autoRotate ? 'Klik en sleep om te draaien' : 'Dubbelklik voor automatisch draaien';
+        }
     });
 }
 
 /**
- * Creëert een 3D text mesh en voegt het toe aan de scene
- * 
- * @param {string} text De tekst om weer te geven in 3D
- * @param {THREE.Scene} scene De Three.js scene om de tekst aan toe te voegen
+ * Handler voor het indrukken van de muisknop
  */
-function createTextMesh(text, scene) {
-    // Omdat we geen FontLoader kunnen gebruiken in deze setup, maken we een eenvoudige kubus
-    // als tijdelijke plaatshouder voor het logo.
-    // In de volledige implementatie zou dit vervangen worden door de echte 3D tekst.
+function onMouseDown(event) {
+    event.preventDefault();
+    isMouseDown = true;
+    autoRotate = false;
+    previousMousePosition = {
+        x: event.clientX,
+        y: event.clientY
+    };
+}
+
+/**
+ * Handler voor muisbewegingen
+ */
+function onMouseMove(event) {
+    if (!isMouseDown) return;
     
-    const geometry = new THREE.BoxGeometry(3, 1, 0.3);
-    const material = new THREE.MeshPhongMaterial({ 
-        color: 0x0099ff,
-        specular: 0x555555,
-        shininess: 30
-    });
+    const deltaMove = {
+        x: event.clientX - previousMousePosition.x,
+        y: event.clientY - previousMousePosition.y
+    };
     
-    const textMesh = new THREE.Mesh(geometry, material);
-    scene.add(textMesh);
+    // Bereken nieuwe doelrotatie gebaseerd op muisbeweging
+    targetRotation.y += deltaMove.x * 0.01;
+    targetRotation.x += deltaMove.y * 0.01;
     
-    // Voeg kleine bollen toe als decoratie (als vervanging van de letters)
-    const sphereGeometry = new THREE.SphereGeometry(0.1, 16, 16);
-    const sphereMaterial = new THREE.MeshPhongMaterial({ color: 0xffffff });
+    // Beperk rotatie om X-as om te voorkomen dat het logo ondersteboven draait
+    targetRotation.x = Math.max(-Math.PI / 3, Math.min(Math.PI / 3, targetRotation.x));
     
-    // Voeg bollen toe op posities om "LYNXX" te suggereren
-    const positions = [
-        [-1.0, 0, 0.2],  // L
-        [-0.5, 0, 0.2],  // Y
-        [0, 0, 0.2],     // N
-        [0.5, 0, 0.2],   // X
-        [1.0, 0, 0.2],   // X
-    ];
+    previousMousePosition = {
+        x: event.clientX,
+        y: event.clientY
+    };
+}
+
+/**
+ * Handler voor het loslaten van de muisknop
+ */
+function onMouseUp() {
+    isMouseDown = false;
+}
+
+/**
+ * Handler voor het aanraken van het scherm (touch start)
+ */
+function onTouchStart(event) {
+    if (event.touches.length === 1) {
+        event.preventDefault();
+        isMouseDown = true;
+        autoRotate = false;
+        previousMousePosition = {
+            x: event.touches[0].clientX,
+            y: event.touches[0].clientY
+        };
+    }
+}
+
+/**
+ * Handler voor het bewegen van een vinger over het scherm (touch move)
+ */
+function onTouchMove(event) {
+    if (isMouseDown && event.touches.length === 1) {
+        const deltaMove = {
+            x: event.touches[0].clientX - previousMousePosition.x,
+            y: event.touches[0].clientY - previousMousePosition.y
+        };
+        
+        // Bereken nieuwe doelrotatie gebaseerd op touch beweging
+        targetRotation.y += deltaMove.x * 0.01;
+        targetRotation.x += deltaMove.y * 0.01;
+        
+        // Beperk rotatie om X-as
+        targetRotation.x = Math.max(-Math.PI / 3, Math.min(Math.PI / 3, targetRotation.x));
+        
+        previousMousePosition = {
+            x: event.touches[0].clientX,
+            y: event.touches[0].clientY
+        };
+    }
+}
+
+/**
+ * Handler voor het loslaten van het scherm (touch end)
+ */
+function onTouchEnd() {
+    isMouseDown = false;
+}
+
+/**
+ * Animatie-loop voor het renderen van de 3D scene
+ */
+function animate() {
+    requestAnimationFrame(animate);
     
-    positions.forEach(pos => {
-        const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
-        sphere.position.set(pos[0], pos[1], pos[2]);
-        scene.add(sphere);
-    });
+    if (logoGroup) {
+        // Automatische rotatie als ingeschakeld en er geen handmatige interactie is
+        if (autoRotate && !isMouseDown) {
+            targetRotation.y += rotationSpeed.y;
+            targetRotation.x = 0.2 * Math.sin(Date.now() * 0.001) + 0.2;
+        }
+        
+        // Smooth interpolatie naar de doelrotatie
+        currentRotation.x += (targetRotation.x - currentRotation.x) * 0.1;
+        currentRotation.y += (targetRotation.y - currentRotation.y) * 0.1;
+        
+        // Pas de huidige rotatie toe op het logo
+        logoGroup.rotation.x = currentRotation.x;
+        logoGroup.rotation.y = currentRotation.y;
+    }
+    
+    // Render de scene
+    renderer.render(scene, camera);
 }
