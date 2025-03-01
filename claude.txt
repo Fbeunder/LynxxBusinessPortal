@@ -1,0 +1,74 @@
+# Lynxx Business Portal
+
+## 1. Projectoverzicht
+De Lynxx Business Portal is een webomgeving waar Lynxx medewerkers de belangrijkste bedrijfsapps van Lynxx kunnen vinden. De portal biedt een centrale toegangsplaats tot bedrijfsapplicaties, authenticeert gebruikers via Google accounts binnen het lynxx.com domein, en presenteert de beschikbare apps als tegels in een overzichtelijke interface. De header van de portal bevat een 3D-roterende Lynxx logo om visuele interesse te wekken.
+
+## 2. Architectuur
+De applicatie volgt een modulaire structuur met de volgende hoofdcomponenten:
+
+- **Frontend**: Gebruikersinterface gebouwd met HTML, CSS, JavaScript en Three.js (voor 3D-effecten)
+- **Backend**: Python-gebaseerde server met authenticatie, configuratie en API-endpoints
+- **Configuratie**: Configuratiebestanden voor app definities en instellingen
+- **Authenticatie**: Module voor het verifiëren van gebruikers via Google OAuth
+
+## 3. Modules
+
+### app.py
+- **Status**: Niet gestart
+- **Bestandsnaam**: app.py
+- **Functionaliteit**: Hoofdapplicatiebestand met Flask-serverimplementatie
+- **Afhankelijkheid**: Afhankelijk van alle andere modules
+
+### config.py
+- **Status**: Niet gestart
+- **Bestandsnaam**: config.py
+- **Functionaliteit**: Configuratiebeheersysteem, laadt en beheert applicatie-instellingen
+- **Afhankelijkheid**: Geen afhankelijkheden
+
+### auth.py
+- **Status**: Niet gestart
+- **Bestandsnaam**: auth.py
+- **Functionaliteit**: Authenticatiesysteem met Google OAuth integratie
+- **Afhankelijkheid**: Afhankelijk van config.py
+
+### static/css/style.css
+- **Status**: Niet gestart
+- **Bestandsnaam**: static/css/style.css
+- **Functionaliteit**: CSS-styling voor de webinterface
+- **Afhankelijkheid**: Geen afhankelijkheden
+
+### static/js/main.js
+- **Status**: Niet gestart
+- **Bestandsnaam**: static/js/main.js
+- **Functionaliteit**: Algemene JavaScript-functionaliteit voor de webinterface
+- **Afhankelijkheid**: Geen afhankelijkheden
+
+### static/js/logo3d.js
+- **Status**: Niet gestart
+- **Bestandsnaam**: static/js/logo3d.js
+- **Functionaliteit**: Three.js implementatie voor het 3D-roterende Lynxx-logo
+- **Afhankelijkheid**: Afhankelijk van Three.js bibliotheek
+
+### templates/base.html
+- **Status**: Niet gestart
+- **Bestandsnaam**: templates/base.html
+- **Functionaliteit**: Basis HTML-sjabloon voor alle pagina's
+- **Afhankelijkheid**: Geen afhankelijkheden
+
+### templates/index.html
+- **Status**: Niet gestart
+- **Bestandsnaam**: templates/index.html
+- **Functionaliteit**: Hoofdpagina met app-tegels
+- **Afhankelijkheid**: Afhankelijk van base.html
+
+### templates/login.html
+- **Status**: Niet gestart
+- **Bestandsnaam**: templates/login.html
+- **Functionaliteit**: Inlogpagina
+- **Afhankelijkheid**: Afhankelijk van base.html
+
+### apps.json
+- **Status**: Niet gestart
+- **Bestandsnaam**: apps.json
+- **Functionaliteit**: JSON-configuratiebestand voor app-definities (naam, URL, beschrijving, icon)
+- **Afhankelijkheid**: Geen afhankelijkheden
