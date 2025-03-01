@@ -1,0 +1,28 @@
+{
+  "apps": [
+    {
+      "name": "Gmail",
+      "url": "https://gmail.com",
+      "description": "Google Mail voor Lynxx medewerkers",
+      "icon": "mail"
+    },
+    {
+      "name": "Harvest",
+      "url": "https://lynxx.harvestapp.com",
+      "description": "Tijdsregistratie voor projecten",
+      "icon": "clock"
+    },
+    {
+      "name": "Confluence",
+      "url": "https://lynxx.atlassian.net/wiki/home",
+      "description": "Lynxx kennisbank en documentatie",
+      "icon": "book"
+    },
+    {
+      "name": "GitHub",
+      "url": "https://github.com/orgs/Lynxx-NL",
+      "description": "Code repository voor Lynxx projecten",
+      "icon": "code"
+    }
+  ]
+}
