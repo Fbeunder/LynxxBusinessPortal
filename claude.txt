@@ -16,19 +16,19 @@ De applicatie volgt een modulaire structuur met de volgende hoofdcomponenten:
 ### app.py
 - **Status**: Volledig geïmplementeerd
 - **Bestandsnaam**: app.py
-- **Functionaliteit**: Hoofdapplicatiebestand met Flask-serverimplementatie, route-beheer en verbeterde logging
+- **Functionaliteit**: Hoofdapplicatiebestand met Flask-serverimplementatie, route-beheer, verbeterde logging, foutafhandeling en configuratie validatie
 - **Afhankelijkheid**: Afhankelijk van alle andere modules
 
 ### config.py
 - **Status**: Volledig geïmplementeerd
 - **Bestandsnaam**: config.py
-- **Functionaliteit**: Configuratiebeheersysteem, laadt en beheert applicatie-instellingen, valideert app configuraties
-- **Afhankelijkheid**: Geen afhankelijkheden
+- **Functionaliteit**: Geavanceerd configuratiebeheersysteem met ondersteuning voor omgevingsvariabelen, robuuste validatie, admin instellingen en failsafe defaults
+- **Afhankelijkheid**: Afhankelijk van python-dotenv
 
 ### auth.py
 - **Status**: Volledig geïmplementeerd
 - **Bestandsnaam**: auth.py
-- **Functionaliteit**: Authenticatiesysteem met Google OAuth integratie en domeinvalidatie
+- **Functionaliteit**: Robuust authenticatiesysteem met Google OAuth integratie, domeinvalidatie, foutafhandeling en admin rechten controle
 - **Afhankelijkheid**: Afhankelijk van config.py
 
 ### static/css/style.css
@@ -76,13 +76,25 @@ De applicatie volgt een modulaire structuur met de volgende hoofdcomponenten:
 ### templates/error.html
 - **Status**: Volledig geïmplementeerd
 - **Bestandsnaam**: templates/error.html
-- **Functionaliteit**: Foutpagina's (404, 500, etc.) met verbeterde foutafhandeling
+- **Functionaliteit**: Verbeterde foutpagina's met ondersteuning voor verschillende foutcodes en informatieve meldingen
 - **Afhankelijkheid**: Afhankelijk van base.html
 
 ### apps.json
 - **Status**: Volledig geïmplementeerd
 - **Bestandsnaam**: apps.json
 - **Functionaliteit**: JSON-configuratiebestand voor app-definities (naam, URL, beschrijving, icon)
+- **Afhankelijkheid**: Geen afhankelijkheden
+
+### .env.example
+- **Status**: Volledig geïmplementeerd
+- **Bestandsnaam**: .env.example
+- **Functionaliteit**: Voorbeeldbestand voor omgevingsvariabelen configuratie
+- **Afhankelijkheid**: Geen afhankelijkheden
+
+### README.md
+- **Status**: Volledig geïmplementeerd
+- **Bestandsnaam**: README.md
+- **Functionaliteit**: Uitgebreide documentatie over de applicatie, installatie, configuratie en gebruik
 - **Afhankelijkheid**: Geen afhankelijkheden
 
 ### requirements.txt
