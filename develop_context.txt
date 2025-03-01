@@ -32,6 +32,6 @@ Hanteer de volgeden Werkwijze voor werken met Git en wijzigingen beheren
 2. Nieuwe werkversie maken: Maak een aparte werkversie (branch) om wijzigingen aan te brengen zonder de hoofdversie te beïnvloeden.
 3. Aanpassingen doorvoeren: Voer de gewenste wijzigingen door in de code en test of alles naar behoren werkt.
 4. Wijzigingen opslaan: Sla de wijzigingen lokaal op en voorzie deze van een korte, duidelijke omschrijving.
-5. Wijzigingen delen: Stuur de opgeslagen wijzigingen naar de centrale repository, zodat anderen deze kunnen inzien en beoordelen.
+5. Wijzigingen delen: Stuur de opgeslagen wijzigingen naar de centrale repository
 6. Controle en goedkeuring: Keur je eigen werk goed
-7. Samenvoegen met de hoofdversie: Als de wijzigingen zijn goedgekeurd, worden ze samengevoegd met de hoofdversie van de code.
+7. Merge hoofdversie: Voeg de wijzigingen samen met de hoofdversie van de code.
